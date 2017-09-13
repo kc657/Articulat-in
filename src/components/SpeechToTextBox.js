@@ -21,7 +21,7 @@ class SpeechToTextBox extends Component {
             <div className='row'>
               <div className='col-md-6'>
                 <center>
-                  <div cols='50' className='speech-only' id='speech'>S  poken output goes here</div>
+                  <div className='speech-only' id='speech'>Spoken output goes here</div>
                 </center>
               </div>
             </div>

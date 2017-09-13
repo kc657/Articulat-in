@@ -1,17 +1,17 @@
 const express = require('express')
+const app = express()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const app = express()
-const port = process.env.PORT || 3000
+const controllers = require('./controllers')
+const port = process.env.PORT || 3001
 
 app.use(express.static(__dirname + '/public'))
-
-// To config API to use body body-parser and look for JSON in req.body
+// to config API to use body body-parser and look for JSON in req.body
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(bodyParser.json())
-// To config API to use cookieParser
+// to config API to use cookieParser
 app.use(cookieParser())
 
 // Prevent CORS errors
@@ -31,15 +31,14 @@ app.get('/', function homepage (req, res) {
   res.sendFile(__dirname + '/public/index.html')
 })
 
-// Controller Routes
-app.use('/', require('./controller/restapi/router'))
+app.get('/api/watson/token', controllers.watson.token)
 
 app.listen(port, function () {
   console.log(`App running on ${port}`)
 })
 
 /*
-## May be needed later with cfenv package ##
+##May be needed later with cfenv
 const cfenv = require('cfenv')
 const appEnv = cfenv.getAppEnv()
 app.set('port',appEnv.port)

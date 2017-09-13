@@ -1,9 +1,9 @@
-let extend = require('extend')
-let watson = require('watson-developer-cloud')
-let vcapServices = require('vcap_services')
-let config = require('../../env.json')
+const extend = require('extend')
+const watson = require('watson-developer-cloud')
+const vcapServices = require('vcap_services')
+const config = require('./env.json')
 
-exports.stt_token = function (req, res) {
+function stt_token (req, res) {
   let sttConfig = extend(config.speech_to_text, vcapServices.getCredentials('speech_to_text'))
 
   let sttAuthService = watson.authorization(sttConfig)
@@ -16,10 +16,12 @@ exports.stt_token = function (req, res) {
       res.status(500).send('Error retrieving speech to text token')
       return
     }
+    console.log('THIS IS SEVER SIDE TOKEN');
+    console.log(token);
     res.send(token)
   })
 }
 
-exports.tts_synthesize = function (req, res) {
-  console.log('tts_synthesize entered')
+module.exports = {
+  token: stt_token
 }

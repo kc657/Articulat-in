@@ -13,8 +13,9 @@ function initPage () {
       _mic.removeClass('mic_enabled')
       _stop.addClass('mic_enabled')
       _stop.removeClass('mic_disabled')
-      $.when($.get('/api/speech-to-text/token')).done(
+      $.when($.get('http://localhost:3001/api/watson/token')).done(
         function (token) {
+          console.log(token);
           stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
             token: token,
             outputElement: '#speech' // CSS selector or DOM Element
@@ -35,9 +36,5 @@ function initPage () {
     _mic.removeClass('mic_disabled')
     _stop.addClass('mic_disabled')
     _stop.removeClass('mic_enabled')
-  })
-
-  readText.on('click', function () {
-    console.log('initiating text-to-speech service...')
   })
 }

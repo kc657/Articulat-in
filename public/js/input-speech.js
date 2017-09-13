@@ -15,7 +15,6 @@ function initPage () {
       _stop.removeClass('mic_disabled')
       $.when($.get('http://localhost:3001/api/watson/token')).done(
         function (token) {
-          console.log(token);
           stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
             token: token,
             outputElement: '#speech' // CSS selector or DOM Element

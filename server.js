@@ -6,12 +6,12 @@ const port = process.env.PORT || 3000
 
 app.use(express.static(__dirname + '/public'))
 
-// to config API to use body body-parser and look for JSON in req.body
+// To config API to use body body-parser and look for JSON in req.body
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(bodyParser.json())
-// to config API to use cookieParser
+// To config API to use cookieParser
 app.use(cookieParser())
 
 // Prevent CORS errors
@@ -39,7 +39,7 @@ app.listen(port, function () {
 })
 
 /*
-##May be needed later with cfenv package
+## May be needed later with cfenv package ##
 const cfenv = require('cfenv')
 const appEnv = cfenv.getAppEnv()
 app.set('port',appEnv.port)

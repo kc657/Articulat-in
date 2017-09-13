@@ -14,7 +14,7 @@ class SpeechToTextBox extends Component {
             <div className='row'>
               <br />
               <div className='col-md-6'>
-                <center><img id='microphone' src='images/microphone.png' /><img id='stop' src='images/stop.png' /></center>
+                <center><img id='microphone' src='images/microphone.png' alt='#' /><img id='stop' src='images/stop.png' alt='#' /></center>
               </div>
               <br />
             </div>

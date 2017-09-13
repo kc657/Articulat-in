@@ -4,17 +4,13 @@
   "private": true,
   "dependencies": {
     "body-parser": "^1.18.0",
-    "cfenv": "^1.0.4",
     "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.7",
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "extend": "^3.0.1",
-    "mime": "^1.4.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.13",
-    "request": "^2.81.0",
     "vcap_services": "^0.3.4",
     "watson-developer-cloud": "^2.39.0"
   },

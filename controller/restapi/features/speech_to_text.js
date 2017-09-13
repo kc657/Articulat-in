@@ -2,7 +2,7 @@ let extend = require('extend')
 let watson = require('watson-developer-cloud')
 let vcapServices = require('vcap_services')
 let config = require('../../env.json')
-
+console.log("HIHIHIHI");
 exports.stt_token = function (req, res) {
   let sttConfig = extend(config.speech_to_text, vcapServices.getCredentials('speech_to_text'))
 
@@ -16,7 +16,7 @@ exports.stt_token = function (req, res) {
       res.status(500).send('Error retrieving speech to text token')
       return
     }
-    res.send(token)
+    console.log(token)
   })
 }
 

@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
 
 // Setting Home Route
 app.get('/', function homepage (req, res) {
-  res.sendFile(__dirname + '/public')
+  res.sendFile(__dirname + '/public/index.html')
 })
 
 // Controller Routes

@@ -11,6 +11,7 @@
     "jquery": "^3.2.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router": "^4.2.0",
     "react-scripts": "1.0.13",
     "vcap_services": "^0.1.7",
     "watson-developer-cloud": "^2.1.0",

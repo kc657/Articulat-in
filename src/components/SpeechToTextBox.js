@@ -10,11 +10,6 @@ class SpeechToTextBox extends Component {
     }
   }
 
-  stopRecordClick = () => {
-      this.setState({isRecording: false})
-      this.stopRecording()
-  }
-
   startRecording = () => {
     this.setState({isRecording: true})
     let stream = null
@@ -23,11 +18,10 @@ class SpeechToTextBox extends Component {
       (token) => {
         stream = recognizeMic({
           token: token,
-          outputElement: '#speech', // CSS selector or DOM Element
+          outputElement: '#speech',
           clear: true
         })
         this.setState({stream:stream})
-        console.log(this.state.stream);
         stream.on('error', function (err) {
           console.log(err)
         })
@@ -44,24 +38,20 @@ class SpeechToTextBox extends Component {
 
   render () {
     return (
-      <div className='cover'>
-        <div className='container' id='top'>
-          <div className='app_container' id='body'>
-            <div className='row'>
-              <div className='col-md-6 text-center'>
-                <h1>Voice Input</h1>
-              </div>
-            </div>
-            <div className='row'>
-              {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecording}><i className='material-icons left'>stop</i>Stop</a>}
-            </div>
-            <div className='row'>
-              <div className='col-md-6'>
-                <center>
-                  <p className='speech-only' id='speech'>Spoken output goes here</p>
-                </center>
-              </div>
-            </div>
+      <div className='container' id='top'>
+        <div className='row'>
+          <div className='col m12 center text-center'>
+            <h1>Practice Room</h1>
+          </div>
+        </div>
+        <div className='row'>
+          {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecording}><i className='material-icons left'>stop</i>Stop</a>}
+        </div>
+        <div className='row'>
+          <div className='col m6'>
+            <center>
+              <p className='speech-only ' id='speech'>Spoken output goes here</p>
+            </center>
           </div>
         </div>
       </div>

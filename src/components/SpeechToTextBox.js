@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import $ from 'jquery'
-import WatsonSpeech from 'watson-speech'
-
 
 class SpeechToTextBox extends Component {
   constructor (props) {
@@ -11,17 +9,20 @@ class SpeechToTextBox extends Component {
     }
   }
 
-
+  onRecordClick = () => {
+    this.setState({isRecording: !this.state.isRecording})
+    this.recording()
+    console.log('No Longer Recording = ', this.state.isRecording)
+  }
 
   recording = () => {
     let stream = null
-    console.log(stream);
     let isRecording = this.state.isRecording
+    let recognizeMic = require('watson-speech/speech-to-text/recognize-microphone')
     if (!isRecording) {
       $.when($.get('http://localhost:3001/api/watson/token')).done(
         function (token) {
-          console.log(token);
-          stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
+          stream = recognizeMic({
             token: token,
             outputElement: '#speech' // CSS selector or DOM Element
           })
@@ -32,11 +33,11 @@ class SpeechToTextBox extends Component {
       )
     }
   }
-  onRecordClick = () => {
-    this.setState({isRecording: !this.state.isRecording})
-    this.recording()
-    console.log(this.state.isRecording);
-  }
+
+  // onUserRecord = () => {
+  //   this.setState({userInput: this.text})
+  //   console.log(this.state.userInput);
+  // }
 
   render () {
     return (
@@ -49,7 +50,7 @@ class SpeechToTextBox extends Component {
               </div>
             </div>
             <div className='row'>
-              <a className='waves-effect waves-light btn' onClick={this.onRecordClick}><i class='material-icons left'></i>Record</a>
+              <a className='waves-effect waves-light btn' onClick={this.onRecordClick}><i className='material-icons left'>record_voice_over</i>Record</a>
               <br />
               <div className='col-md-6'>
                 <center><img id='microphone' src='images/microphone.png' alt='#' /><img id='stop' src='images/stop.png' alt='#' /></center>
@@ -59,7 +60,7 @@ class SpeechToTextBox extends Component {
             <div className='row'>
               <div className='col-md-6'>
                 <center>
-                  <div className='speech-only' id='speech'>Spoken output goes here</div>
+                  <p className='speech-only' id='speech'>Spoken output goes here</p>
                 </center>
               </div>
             </div>

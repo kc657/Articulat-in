@@ -5,33 +5,41 @@ class SpeechToTextBox extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isRecording: false
+      isRecording: false,
+      stream: {}
     }
   }
 
-  onRecordClick = () => {
-    this.setState({isRecording: !this.state.isRecording})
-    this.recording()
-    console.log('No Longer Recording = ', this.state.isRecording)
+  stopRecordClick = () => {
+      this.setState({isRecording: false})
+      this.stopRecording()
   }
 
-  recording = () => {
+  startRecording = () => {
+    this.setState({isRecording: true})
     let stream = null
-    let isRecording = this.state.isRecording
     let recognizeMic = require('watson-speech/speech-to-text/recognize-microphone')
-    if (!isRecording) {
-      $.when($.get('http://localhost:3001/api/watson/token')).done(
-        function (token) {
-          stream = recognizeMic({
-            token: token,
-            outputElement: '#speech' // CSS selector or DOM Element
-          })
-          stream.on('error', function (err) {
-            console.log(err)
-          })
-        }
-      )
-    }
+    $.when($.get('http://localhost:3001/api/watson/token')).done(
+      (token) => {
+        stream = recognizeMic({
+          token: token,
+          outputElement: '#speech', // CSS selector or DOM Element
+          clear: true
+        })
+        this.setState({stream:stream})
+        console.log(this.state.stream);
+        stream.on('error', function (err) {
+          console.log(err)
+        })
+      }
+    )
+  }
+
+  stopRecording = () => {
+    this.setState({isRecording: false})
+    this.state.stream.stop('error', function (err) {
+      console.log(err)
+    })
   }
 
   // onUserRecord = () => {
@@ -50,12 +58,7 @@ class SpeechToTextBox extends Component {
               </div>
             </div>
             <div className='row'>
-              <a className='waves-effect waves-light btn' onClick={this.onRecordClick}><i className='material-icons left'>record_voice_over</i>Record</a>
-              <br />
-              <div className='col-md-6'>
-                <center><img id='microphone' src='images/microphone.png' alt='#' /><img id='stop' src='images/stop.png' alt='#' /></center>
-              </div>
-              <br />
+              {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecordClick}><i className='material-icons left'>stop</i>Stop</a>}
             </div>
             <div className='row'>
               <div className='col-md-6'>

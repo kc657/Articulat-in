@@ -6,7 +6,9 @@ class SpeechToTextBox extends Component {
     super(props)
     this.state = {
       isRecording: false,
-      stream: {}
+      stream: {},
+      userInput:'',
+      confirmation: false
     }
   }
 
@@ -31,9 +33,27 @@ class SpeechToTextBox extends Component {
 
   stopRecording = () => {
     this.setState({isRecording: false})
+    $("#speech-only").append("Hello");
     this.state.stream.stop('error', function (err) {
+      console.log(this.state.stream);
       console.log(err)
     })
+  }
+
+  handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      if (this.state.userInput === ''){
+        this.setState({confirmation: true})
+        console.log('If you are sure, press Enter again')
+      } else if(this.state.userInput !== ''){
+        console.log('saved!');
+        console.log(this.state.userInput);
+      }
+    }
+  }
+
+  saveUserInput = (event) => {
+    this.setState({userInput: event.target.value})
   }
 
   render () {
@@ -44,15 +64,16 @@ class SpeechToTextBox extends Component {
             <h1>Practice Room</h1>
           </div>
         </div>
-        <div className='row'>
+        <div className='row col m6'>
           {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecording}><i className='material-icons left'>stop</i>Stop</a>}
         </div>
-        <div className='row'>
-          <div className='col m6'>
-            <center>
-              <p className='speech-only ' id='speech'>Spoken output goes here</p>
-            </center>
-          </div>
+        <div className='row col m6'>
+          <center>
+            <form>
+              <textarea className='materialize-textarea speech-only' id='speech' data-id-type='userInput' onChange={this.saveUserInput} placeholder='Spoken output goes here' onKeyPress={this.handleKeyPress}></textarea>
+              {!this.state.confirmation? <p>Select text and press enter after completion to review scorecard...</p>:<p>Press Enter Again</p>}
+            </form>
+          </center>
         </div>
       </div>
     )

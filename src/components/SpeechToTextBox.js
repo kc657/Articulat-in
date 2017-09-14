@@ -42,11 +42,6 @@ class SpeechToTextBox extends Component {
     })
   }
 
-  // onUserRecord = () => {
-  //   this.setState({userInput: this.text})
-  //   console.log(this.state.userInput);
-  // }
-
   render () {
     return (
       <div className='cover'>
@@ -58,7 +53,7 @@ class SpeechToTextBox extends Component {
               </div>
             </div>
             <div className='row'>
-              {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecordClick}><i className='material-icons left'>stop</i>Stop</a>}
+              {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecording}><i className='material-icons left'>stop</i>Stop</a>}
             </div>
             <div className='row'>
               <div className='col-md-6'>

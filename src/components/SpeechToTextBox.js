@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import $ from 'jquery'
+import WatsonSpeech from 'watson-speech'
+
 
 class SpeechToTextBox extends Component {
   constructor (props) {
@@ -9,6 +11,8 @@ class SpeechToTextBox extends Component {
     }
   }
 
+
+
   recording = () => {
     let stream = null
     console.log(stream);
@@ -17,13 +21,13 @@ class SpeechToTextBox extends Component {
       $.when($.get('http://localhost:3001/api/watson/token')).done(
         function (token) {
           console.log(token);
-          // stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
-          //   token: token,
-          //   outputElement: '#speech' // CSS selector or DOM Element
-          // })
-          // stream.on('error', function (err) {
-          //   console.log(err)
-          // })
+          stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
+            token: token,
+            outputElement: '#speech' // CSS selector or DOM Element
+          })
+          stream.on('error', function (err) {
+            console.log(err)
+          })
         }
       )
     }

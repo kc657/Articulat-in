@@ -1,5 +1,5 @@
 function initPage () {
-  var _mic = $('#microphone')
+  let _mic = $('#microphone')
   var _stop = $('#stop')
   var readText = $('#readText')
   var stream = null

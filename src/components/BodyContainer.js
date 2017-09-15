@@ -21,7 +21,11 @@ class BodyContainer extends Component {
   }
 
   openModal = () => {
-    this.setState({isModalOpen : !this.state.isModalOpen})
+    this.setState({
+      isModalOpen : !this.state.isModalOpen,
+      newProjectTitle: '',
+      newProjectTranscript: ''
+    })
   }
 
   clickNewAttempt = () => {
@@ -39,8 +43,8 @@ class BodyContainer extends Component {
       }
     }).then(res=>{
       this.setState({
-        title: '',
-        transcript: ''
+        newProjectTitle: '',
+        newProjectTranscript: ''
       })
       this.openModal()
     })

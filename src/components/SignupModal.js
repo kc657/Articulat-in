@@ -17,7 +17,7 @@ class SignupModal extends Component {
       padding: 50
     }
 
-      // The modal "window"
+      // The modal 'window'
     const modalStyle = {
       backgroundColor: '#fff',
       borderRadius: 5,

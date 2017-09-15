@@ -79,7 +79,7 @@ app.post('/login', passport.authenticate('local'), function (req, res) {
 
 // passport log out
 app.get('/logout', function(req, res){
-  console.log("attempting to logout");
+  console.log('attempting to logout');
   req.logout();
   res.redirect('/');
 });

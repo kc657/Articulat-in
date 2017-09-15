@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import $ from 'jquery'
 import SpeechAndGrade from './Body/SpeechAndGrade'
 import ProfilePage from './Body/ProfilePage'
 import ProjectModal from './Body/ProjectModal'
-// import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 class BodyContainer extends Component {
   constructor (props) {
@@ -11,8 +11,15 @@ class BodyContainer extends Component {
       isModalOpen: false,
       newAttempt: false,
       newProjectTitle: '',
-      newProjectTranscript: ''
+      newProjectTranscript: '',
     }
+  }
+
+  handleChange = (event) => {
+    let formId = $(event.target).closest('.modalState').data('id-type')
+    this.setState({[formId]: event.target.value})
+    console.log(this.state.newProjectTitle)
+    console.log(this.state.newProjectTranscript);
   }
 
   openModal = () => {
@@ -27,9 +34,9 @@ class BodyContainer extends Component {
   render () {
     return (
       <div className='BodyContainer'>
-        {!this.state.newAttempt ? <ProfilePage   clickNewAttempt={(event)=>this.clickNewAttempt(event)}/> : <SpeechAndGrade clickNewAttempt={(event)=>this.clickNewAttempt(event)}/>}
-        <button onClick={this.openModal}>Hi</button>
-        <ProjectModal isModalOpen={this.state.isModalOpen} openModal={(event)=>this.openModal(event)}/>
+        {!this.state.newAttempt ? <ProfilePage   clickNewAttempt={(event)=>this.clickNewAttempt(event)} openModal={(event)=>this.openModal(event)}/> : <SpeechAndGrade clickNewAttempt={(event)=>this.clickNewAttempt(event)}/>}
+
+        <ProjectModal isModalOpen={this.state.isModalOpen} newProjectTitle={this.state.newProjectTitle} newProjectTranscript={this.state.newProjectTranscript} openModal={(event)=>this.openModal(event)} handleChange={(event)=>this.handleChange(event)}/>
       </div>
     )
   }

@@ -7,7 +7,6 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const router = express.Router()
 const port = process.env.PORT || 3001
 const db = require('./models')
 const User = db.User
@@ -56,7 +55,7 @@ app.get('/', function homepage (req, res) {
 
 // api routes
 app.get('/api/project', controllers.projects.show)
-app.post('/api/projects/', controllers.projects.create) 
+app.post('/api/projects/', controllers.projects.create)
 
 // watson routes
 app.get('/api/watson/token', controllers.watson.token)

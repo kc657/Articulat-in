@@ -22,3 +22,8 @@ function create (req, res) {
     res.json(newProject)
   })
 }
+
+module.exports = {
+  show:show,
+  create:create
+}

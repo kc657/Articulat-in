@@ -1,4 +1,4 @@
 module.exports = {
-  watson: require('./watsonController')
+  watson: require('./watsonController'),
   projects: require('./projectsController')
 }

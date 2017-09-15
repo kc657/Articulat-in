@@ -30,6 +30,7 @@ app.use(session({
 }))
 
 // passport config
+
 passport.use(new LocalStrategy(db.User.authenticate()))
 passport.serializeUser(function(user, done) {
     done(null, user.id);

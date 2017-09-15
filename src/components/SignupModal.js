@@ -27,9 +27,8 @@ class SignupModal extends Component {
       padding: 30
     }
 
-
     return (
-      <div className='row' id='SignupModal' style={backdropStyle}>
+      <div className='row col s9' id='SignupModal' style={backdropStyle}>
         <div className='modal-content' style={modalStyle}>
           <form className='col m12'>
             <div className='row'>

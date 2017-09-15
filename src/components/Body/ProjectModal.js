@@ -51,7 +51,7 @@ class ProjectModal extends Component {
             <label htmlFor='icon_prefix2'>Input Transcript</label>
           </div>
           <div className='input-field col m8 offset-3'>
-            <button className='btn waves-effect waves-light right' type='submit' onClick={this.props.handleSignInSubmit} name='action'>Submit
+            <button className='btn waves-effect waves-light right' type='submit' onClick={this.props.onSubmitTranscript} name='action'>Submit
               <i className='material-icons right' />
             </button>
           </div>

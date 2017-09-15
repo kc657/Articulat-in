@@ -54,8 +54,8 @@ app.get('/', function homepage (req, res) {
 })
 
 // api routes
-app.get('/api/project', controllers.projects.show)
-app.post('/api/projects/', controllers.projects.create)
+app.get('/api/projects', controllers.projects.show)
+app.post('/api/projects', controllers.projects.create)
 
 // watson routes
 app.get('/api/watson/token', controllers.watson.token)

@@ -54,6 +54,10 @@ app.get('/', function homepage (req, res) {
   res.sendFile(__dirname + '/public/index.html')
 })
 
+// api routes
+app.get('/api/project', controllers.projects.show)
+app.post('/api/projects/', controllers.projects.create) 
+
 // watson routes
 app.get('/api/watson/token', controllers.watson.token)
 

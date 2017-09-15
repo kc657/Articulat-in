@@ -5,6 +5,7 @@ import BodyContainer from './components/BodyContainer'
 // import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 class App extends Component {
+
   render () {
     return (
       <div className='App'>

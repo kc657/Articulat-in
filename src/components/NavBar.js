@@ -33,7 +33,7 @@ class NavBar extends Component {
     event.preventDefault()
     $.ajax({
       method: 'POST',
-      url: 'https://wayfar.herokuapp.com/signup',
+      url: 'http://localhost:3001/signup',
       data: {
         first_name: this.state.signUpFirstName,
         last_name: this.state.signUpLastName,
@@ -66,7 +66,7 @@ class NavBar extends Component {
     event.preventDefault()
     $.ajax({
       method: 'POST',
-      url: 'https://wayfar.herokuapp.com/login',
+      url: 'http://localhost:3001/login',
       data: {
         username: this.state.userName,
         password: this.state.password

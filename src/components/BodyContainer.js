@@ -11,7 +11,7 @@ class BodyContainer extends Component {
       isModalOpen: false,
       newAttempt: false,
       newProjectTitle: '',
-      newProjectTranscript: '',
+      newProjectTranscript: ''
     }
   }
 
@@ -53,7 +53,7 @@ class BodyContainer extends Component {
   render () {
     return (
       <div className='BodyContainer'>
-        {!this.state.newAttempt ? <ProfilePage   clickNewAttempt={(event)=>this.clickNewAttempt(event)} openModal={(event)=>this.openModal(event)}/> : <SpeechAndGrade clickNewAttempt={(event)=>this.clickNewAttempt(event)}/>}
+        {!this.state.newAttempt ? <ProfilePage   clickNewAttempt={(event)=>this.clickNewAttempt(event)} openModal={(event)=>this.openModal(event)}/> : <SpeechAndGrade clickNewAttempt={(event)=>this.clickNewAttempt(event)} saveWatsonInput={(event)=>this.saveWatsonInput(event)}/>}
 
         <ProjectModal isModalOpen={this.state.isModalOpen} newProjectTitle={this.state.newProjectTitle} newProjectTranscript={this.state.newProjectTranscript} openModal={(event)=>this.openModal(event)} handleChange={(event)=>this.handleChange(event)} onSubmitTranscript={(event)=>this.onSubmitTranscript(event)}/>
       </div>

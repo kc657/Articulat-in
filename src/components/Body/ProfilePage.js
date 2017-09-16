@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import ProjectList from './ProjectList'
+import AttemptList from './AttemptList'
 
 class ProfilePage extends Component {
   render () {
     return (
-      <div className='ProfilePage row'>
-        <div className='col s3'>
-          <ProjectList />
+      <div className='ProfilePage row m'>
+        <div className='col s12 m4'>
+          <ProjectList openModal={this.props.openModal}/>
         </div>
-        <div className='col s9'>
-          <h1 className='center'>Show Attempts Here</h1>
-          <a className='waves-effect waves-dark btn' onClick={this.props.clickNewAttempt}>Switch</a>
-          <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a>
+        <div className='col s12 m8'>
+          <AttemptList clickNewAttempt={this.props.clickNewAttempt}/>
         </div>
       </div>
     )

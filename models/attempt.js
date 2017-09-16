@@ -6,6 +6,8 @@ const User = require('./user')
 const AttemptSchema = new Schema({
     attemptTranscript: String,
     attemptTranscriptSpilt: Array,
+    lcs: String,
+    lcsScore: Number,
     _project: {type: Schema.Types.ObjectId, ref: 'Project'},
     _user: {type: Schema.Types.ObjectId, ref: 'User'},
     dateCreated: { type: Date, default: Date.now },

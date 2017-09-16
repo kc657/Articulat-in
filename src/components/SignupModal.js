@@ -42,22 +42,22 @@ class SignupModal extends Component {
               </div>
               <div className='input-field col m6'>
                 <input data-id-type='signUpFirstName' type='text' className='validate' onChange={this.props.handleChange} />
-                <label for='firstName'>First Name</label>
+                <label htmlFor='firstName'>First Name</label>
               </div>
               <div className='input-field col m6'>
                 <input data-id-type='signUpLastName' type='text' className='validate' onChange={this.props.handleChange} />
-                <label for='lastName'>Last Name</label>
+                <label htmlFor='lastName'>Last Name</label>
               </div>
             </div>
             <div className='input-field col m12'>
               <input data-id-type='signUpUserName' type='text' className='validate' onChange={this.props.handleChange} />
-              <label for='userName'>User Name</label>
+              <label htmlFor='userName'>User Name</label>
             </div>
             <div className='row'>
               <div className='input-field col m12'>
                 <input data-id-type='signUpPassword' type='password' className='validate'
                   onChange={this.props.handleChange}/>
-                <label for='password'>Password</label>
+                <label htmlFor='password'>Password</label>
               </div>
             </div>
             <div className='row'>

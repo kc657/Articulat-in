@@ -15,7 +15,7 @@ class SpeechToTextBox extends Component {
   startRecording = () => {
     this.setState({isRecording: true})
     let stream = null
-    let recognizeMic = require('watson-speech/speech-to-text/recognize-microphone')
+    const recognizeMic = require('watson-speech/speech-to-text/recognize-microphone')
     $.when($.get('http://localhost:3001/api/watson/token')).done(
       (token) => {
         stream = recognizeMic({

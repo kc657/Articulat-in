@@ -11,8 +11,8 @@ class SpeechAndGrade extends Component {
       watsonInput: '',
       userTranscript: '',
       userTranscriptSpilt: null,
-      currentProject: 1,
-      currentUser: 1
+      currentProject:  this.props.selectedProject,
+      currentUser: ''
     }
   }
 
@@ -45,6 +45,7 @@ class SpeechAndGrade extends Component {
         console.log(resultSplit);
 
         let lcsWatsonInput = this.state.watsonInput.replace(/[^A-Z0-9]/ig, "")
+
         let lcs = (a, b) => {
           let aSub = a.substr(0, a.length - 1);
           let bSub = b.substr(0, b.length - 1);
@@ -60,14 +61,18 @@ class SpeechAndGrade extends Component {
           }
         }
 
-        console.log(lcs('hello',lcsWatsonInput),lcs('hello',lcsWatsonInput).length);
+        let lcsSave = lcs('projectTranscriptHere',lcsWatsonInput)
+        let lcsScoreSave = (lcsSave).length
+        console.log('The LCS string is ', lcsSave,' and the length is ', lcsScoreSave)
 
         $.ajax({
           method: 'POST',
           url: 'http://localhost:3001/api/attempts',
           data: {
             attemptTranscriptSpilt: resultSplit,
-            attemptTranscript: this.state.watsonInput
+            attemptTranscript: this.state.watsonInput,
+            lcs: lcsSave,
+            lcsScore: lcsScoreSave,
           }
         })
         this.setState({userTranscriptSpilt:1})

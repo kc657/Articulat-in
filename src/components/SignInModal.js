@@ -41,13 +41,13 @@ class SignInModal extends Component {
             </div>
             <div className='input-field col m6 offset-3'>
               <input data-id-type='userName' type='text' className='validate' onChange={this.props.handleChange} />
-              <label for='userName'>User Name</label>
+              <label htmlFor='userName'>User Name</label>
             </div>
             <div className='row'>
               <div className='input-field col m6 offset-3'>
                 <input data-id-type='password' type='password' className='validate'
                   onChange={this.props.handleChange} />
-                <label for='password'>Password</label>
+                <label htmlFor='password'>Password</label>
               </div>
             </div>
             <div className='row'>

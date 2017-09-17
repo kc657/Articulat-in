@@ -3,9 +3,10 @@ let db = require('../models')
 // GET all posts /api/projects/
 
 function show (req, res) {
-  db.Project.find({}, function (err, allProjects) {
+  var user_id = req.params.userId
+  db.Project.find({_user: user_id}, function (err, allProjects) {
     if (err) {
-      console.log('error finding project ', err)
+      console.log('error finding project by userId', err)
     }
     res.json(allProjects)
   })
@@ -24,6 +25,6 @@ function create (req, res) {
 }
 
 module.exports = {
-  show:show,
-  create:create
+  show: show,
+  create: create
 }

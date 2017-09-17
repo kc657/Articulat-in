@@ -98,10 +98,10 @@ class NavBar extends Component {
     }
     return (
       <header>
-        <nav className='light-blue lighten-1'>
-          <a className='brand-logo'>Way Way Far</a>
+        <nav>
+          <a className='brand-logo'><i className='material-icons left'>sentiment_very_satisfied</i>Welcome</a>
           <ul id='navList' className='right hide-on-med-and-down'>
-            <li><a>Welcome {this.userName}!</a></li>
+            <li><a>Welcome Back!</a></li>
             <li><a onClick={this.props.handleLogOut}>Log Out</a></li>
           </ul>
         </nav>

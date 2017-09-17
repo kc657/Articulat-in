@@ -2,18 +2,20 @@ import React, { Component } from 'react'
 import $ from 'jquery'
 
 class ProjectList extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
-      allProjects: []
+      allProjects: [],
+      currentUserId: this.props.currentUserId
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
+    console.log(this.state.currentUserId)
     $.ajax({
-    method: 'GET',
-    url: 'http://localhost:3001/api/projects'
-  })
+      method: 'GET',
+      url: 'http://localhost:3001/api/projects/' + this.state.currentUserId
+    })
     .then((res) => {
       this.setState({allProjects: res})
     }, (err) => {
@@ -21,7 +23,7 @@ class ProjectList extends Component {
     })
   }
 
-  render() {
+  render () {
     let projectCards = this.state.allProjects.map(project => {
       return (
         <a key={project._id} id='projectCard' className='collection-item click-for-project' data-project-name={project.title} data-project-id={project._id} onClick={this.props.handleProjectSelect}>
@@ -32,7 +34,7 @@ class ProjectList extends Component {
 
     return (
       <div id='projectList' className='col m12 center-align container collection'>
-        <h1 className='center'> Projects   <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h1>
+        <h1 className='center'> Projects                                 <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h1>
         { projectCards }
       </div>
     )

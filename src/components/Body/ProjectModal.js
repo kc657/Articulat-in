@@ -42,12 +42,12 @@ class ProjectModal extends Component {
         <form>
           <div className='input-field'>
             <i className='material-icons prefix'>mode_edit</i>
-            <input type='text' data-id-type='newProjectTitle' className='modalState' onChange={this.props.handleChange} onKeyPress={this.onKeyPress} value={this.props.newProjectTitle}/>
+            <input type='text' data-id-type='newProjectTitle' className='modalState' onChange={this.props.handleChange} onKeyPress={this.onKeyPress} value={this.props.newProjectTitle} />
             <label htmlFor='project_name'>Project Name</label>
           </div>
           <div className='input-field'>
             <i className='material-icons prefix'>mode_edit</i>
-            <textarea id='textarea1' className='materialize-textarea modalState' spellCheck='true' data-id-type='newProjectTranscript' type='text' onChange={this.props.handleChange} value={this.props.newProjectTranscript}/>
+            <textarea id='textarea1' className='materialize-textarea modalState' spellCheck='true' data-id-type='newProjectTranscript' type='text' onChange={this.props.handleChange} value={this.props.newProjectTranscript} />
             <label htmlFor='icon_prefix2'>Input Transcript</label>
           </div>
           <div className='input-field col m8 offset-3'>

@@ -20,10 +20,6 @@ function stt_token (req, res) {
   })
 }
 
-
-
-
-
 module.exports = {
   token: stt_token
 }

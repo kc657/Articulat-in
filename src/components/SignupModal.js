@@ -56,7 +56,7 @@ class SignupModal extends Component {
             <div className='row'>
               <div className='input-field col m12'>
                 <input data-id-type='signUpPassword' type='password' className='validate'
-                  onChange={this.props.handleChange}/>
+                  onChange={this.props.handleChange} />
                 <label htmlFor='password'>Password</label>
               </div>
             </div>

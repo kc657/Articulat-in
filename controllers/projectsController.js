@@ -1,9 +1,7 @@
 let db = require('../models')
 
-// GET all posts /api/projects/
-
 function show (req, res) {
-  var user_id = req.params.userId
+  let user_id = req.params.userId
   db.Project.find({_user: user_id}, function (err, allProjects) {
     if (err) {
       console.log('error finding project by userId', err)
@@ -11,8 +9,6 @@ function show (req, res) {
     res.json(allProjects)
   })
 }
-
-// POST to posts /api/posts/
 
 function create (req, res) {
   db.Project.create(req.body, function (err, newProject) {

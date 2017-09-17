@@ -9,9 +9,19 @@ class ProjectList extends Component {
       currentUserId: this.props.currentUserId
     }
   }
-
   componentWillMount () {
-    console.log(this.state.currentUserId)
+    $.ajax({
+      method: 'GET',
+      url: 'http://localhost:3001/api/projects/' + this.state.currentUserId
+    })
+    .then((res) => {
+      this.setState({allProjects: res})
+    }, (err) => {
+      console.log('error: ', err)
+    })
+  }
+
+  componentWillUpdate () {
     $.ajax({
       method: 'GET',
       url: 'http://localhost:3001/api/projects/' + this.state.currentUserId
@@ -34,7 +44,7 @@ class ProjectList extends Component {
 
     return (
       <div id='projectList' className='col m12 center-align container collection'>
-        <h1 className='center'> Projects                                 <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h1>
+        <h2 className='center'> Your Projects                                 <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h2>
         { projectCards }
       </div>
     )

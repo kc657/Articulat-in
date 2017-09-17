@@ -10,7 +10,7 @@ class ProfilePage extends Component {
           <ProjectList openModal={this.props.openModal} handleProjectSelect={this.props.handleProjectSelect} currentUserId={this.props.currentUserId} />
         </div>
         <div className='col s12 m8'>
-          <AttemptList clickNewAttempt={this.props.clickNewAttempt} selectedProject={this.props.selectedProject} />
+          <AttemptList clickNewAttempt={this.props.clickNewAttempt} selectedProject={this.props.selectedProject} currentUserId={this.props.currentUserId}/>
         </div>
       </div>
     )

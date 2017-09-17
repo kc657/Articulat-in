@@ -57,6 +57,7 @@ app.get('/', function homepage (req, res) {
 // api routes
 app.get('/api/projects/:userId', controllers.projects.show)
 app.post('/api/projects', controllers.projects.create)
+app.get('/api/attempts/:userId', controllers.attempts.show)
 app.post('/api/attempts', controllers.attempts.create)
 
 // watson routes

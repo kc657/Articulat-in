@@ -13,8 +13,6 @@ class NavBar extends Component {
       signUpPassword: '',
       userName: '',
       password: '',
-      userId: '',
-      isLoggedIn: false,
       isSignInOpen: false,
       isSignUpOpen: false,
     }
@@ -54,14 +52,6 @@ class NavBar extends Component {
     this.setState({isSignInOpen: !this.state.isSignInOpen})
   }
 
-  handleUserNameChange = (event) => {
-    this.setState({userName: event.target.value})
-  }
-
-  handlePasswordChange = (event) => {
-    this.setState({password: event.target.value})
-  }
-
   handleSignInSubmit = (event) => {
     event.preventDefault()
     $.ajax({
@@ -74,7 +64,8 @@ class NavBar extends Component {
     })
     .then((res) => {
       console.log(res, 'User is authenticated')
-      this.setState({userId: res._id, isLoggedIn: true})
+      console.log(res._id);
+      this.props.setGlobalUserId(res._id)
       this.toggleSignInModal()
     },
     (err) => {
@@ -82,18 +73,13 @@ class NavBar extends Component {
       this.setState({
         userName: '',
         password: '',
-        userId: '',
-        isLoggedIn: false
       })
+      this.props.handleLogOut()
     })
   }
 
-  handleLogOut = (event) => {
-    this.setState({isLoggedIn:false})
-  }
-
   render () {
-    if (!this.state.isLoggedIn) {
+    if (!this.props.isLoggedIn) {
       return (
         <header>
           <nav>
@@ -116,7 +102,7 @@ class NavBar extends Component {
           <a className='brand-logo'>Way Way Far</a>
           <ul id='navList' className='right hide-on-med-and-down'>
             <li><a>Welcome {this.userName}!</a></li>
-            <li><a onClick={this.handleLogOut}>Log Out</a></li>
+            <li><a onClick={this.props.handleLogOut}>Log Out</a></li>
           </ul>
         </nav>
       </header>

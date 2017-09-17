@@ -11,8 +11,7 @@ class SpeechAndGrade extends Component {
       watsonInput: '',
       userTranscript: '',
       userTranscriptSpilt: null,
-      currentProject:  this.props.selectedProject,
-      currentUser: ''
+      currentProject:  this.props.selectedProject
     }
   }
 
@@ -60,18 +59,19 @@ class SpeechAndGrade extends Component {
         		c[i] = row = row.slice();
         		for(diag=0,j=0;j<n;j++,diag=latch){
         			latch=row[j];
-        			if(x[i] == y[j]){row[j] = diag+1;}
+        			if(x[i] === y[j]){row[j] = diag+1;}
         			else{
         				left = row[j-1]||0;
         				if(left>row[j]){row[j] = left;}
         			}
         		}
         	}
-        	i--,j--;
+        	(i--,j--);
         	while(i>-1&&j>-1){
         		switch(c[i][j]){
         			default: j--;
         				lcs.unshift(x[i]);
+                break;
         			case (i&&c[i-1][j]): i--;
         				continue;
         			case (j&&c[i][j-1]): j--;
@@ -93,6 +93,8 @@ class SpeechAndGrade extends Component {
             attemptTranscript: this.state.watsonInput,
             lcs: lcsSave,
             lcsScore: lcsScoreSave,
+            _project: this.props.selectedProject,
+            _user:this.props.currentUserId
           }
         })
         this.setState({userTranscriptSpilt:1})

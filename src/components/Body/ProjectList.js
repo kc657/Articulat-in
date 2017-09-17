@@ -24,14 +24,14 @@ class ProjectList extends Component {
   render() {
     let projectCards = this.state.allProjects.map(project => {
       return (
-        <div key={project._id} id='citiesCard' className='container click-for-project' data-project-name={project.title} data-project-id={project._id} onClick={this.props.handleProjectSelect}>
-          <h4>{ project.title }</h4>
-        </div>
+        <a key={project._id} id='projectCard' className='collection-item click-for-project' data-project-name={project.title} data-project-id={project._id} onClick={this.props.handleProjectSelect}>
+          { project.title }
+        </a>
       )
     })
 
     return (
-      <div id='projectList' className='col m12 center-align container'>
+      <div id='projectList' className='col m12 center-align container collection'>
         <h1 className='center'> Projects   <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h1>
         { projectCards }
       </div>

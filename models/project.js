@@ -7,8 +7,9 @@ const ProjectSchema = new Schema({
     transcript: String,
     transcriptSpilt: Array,
     dateDue: Date,
-    _user: {type: Schema.Types.ObjectId, ref: 'User'},
-    dateCreated: { type: Date, default: Date.now }
+    dateCreated: { type: Date, default: Date.now },
+    userId: String,
+    _user: {type: Schema.Types.ObjectId,ref: 'User'}
 })
 
 const Project = mongoose.model('Project', ProjectSchema)

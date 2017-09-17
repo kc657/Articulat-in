@@ -7,7 +7,7 @@ class ProfilePage extends Component {
     return (
       <div className='ProfilePage row m'>
         <div className='col s12 m4'>
-          <ProjectList openModal={this.props.openModal}/>
+          <ProjectList openModal={this.props.openModal} handleProjectSelect={this.props.handleProjectSelect}/>
         </div>
         <div className='col s12 m8'>
           <AttemptList clickNewAttempt={this.props.clickNewAttempt}/>

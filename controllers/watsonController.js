@@ -16,11 +16,13 @@ function stt_token (req, res) {
       res.status(500).send('Error retrieving speech to text token')
       return
     }
-    console.log('THIS IS SEVER SIDE TOKEN');
-    console.log(token);
     res.send(token)
   })
 }
+
+
+
+
 
 module.exports = {
   token: stt_token

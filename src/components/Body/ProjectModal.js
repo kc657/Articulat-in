@@ -28,9 +28,9 @@ const customStyles = {
 }
 
 class ProjectModal extends Component {
-  onKeyPress (event) {
-    if (event.which === 13) {
-      event.preventDefault()
+  onKeyPress (e) {
+    if (e.which === 13) {
+      e.preDefault()
     }
   }
 

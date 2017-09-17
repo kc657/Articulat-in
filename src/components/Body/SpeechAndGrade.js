@@ -80,7 +80,7 @@ class SpeechAndGrade extends Component {
         	return lcs.join('');
         }
 
-        let lcsSave = lcs('Twelve weeks at General Assembly’s developer bootcamp passed by faster than I had anticipated. From learning the basic logical operators on week one to tackling longest common subsequence algorithms for my final project, I am proud of how much I have learned. But my one regret was not documenting my experience throughout. Following the old Chinese proverb: “The best time to plant a tree was 20 years ago. The second best time is now”, here is my first post with three advice for anyone considering a developer bootcamp.',lcsWatsonInput)
+        let lcsSave = lcs('selectedProjectTranscript',lcsWatsonInput)
         let lcsScoreSave = (lcsSave).length
 
         console.log('The LCS string is ', lcsSave,' and the length is ', lcsScoreSave)

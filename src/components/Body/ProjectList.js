@@ -35,7 +35,7 @@ class ProjectList extends Component {
   }
 
   render () {
-    let projectCards = this.state.allProjects.map(project => {
+    let projectCards = this.state.allProjects.slice(0).reverse().map(project => {
       return (
         <a key={project._id} id='projectCard' className='collection-item click-for-project' data-project-name={project.title} data-project-id={project._id} onClick={this.props.handleProjectSelect}>
           { project.title }
@@ -45,7 +45,7 @@ class ProjectList extends Component {
 
     return (
       <div id='projectList' className='col m12 center-align container collection'>
-        <h2 className='center'> Your Projects                                                     <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h2>
+        <h2 className='center'> Your Projects <a className='btn-floating btn-large waves-effect waves-light black' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h2>
         { projectCards }
       </div>
     )

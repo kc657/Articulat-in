@@ -11,6 +11,7 @@ class SpeechAndGrade extends Component {
       watsonInput: '',
       userTranscript: '',
       userTranscriptSpilt: null,
+      attemptTone: {}
     }
   }
 
@@ -86,12 +87,12 @@ class SpeechAndGrade extends Component {
         	}
         	return lcs.join('');
         }
-
+        let userTranscriptLength = this.state.userTranscript.replace(/[^A-Z0-9]/ig, "").length
         let lcsSave = lcs(this.state.userTranscript,lcsWatsonInput)
-        let lcsScoreSave = (lcsSave).length
+        let lcsScoreSave = (((lcsSave).length)/userTranscriptLength)*100
+        console.log(lcsScoreSave);
 
-        console.log('The LCS string is ', lcsSave,' and the length is ', lcsScoreSave)
-
+        console.log('The LCS string is ', lcsSave,' and the score is ', lcsScoreSave)
         $.ajax({method:'GET',
           url: 'http://localhost:3001/api/watson/tone/',
           data:{'myText': this.state.watsonInput}})
@@ -111,23 +112,25 @@ class SpeechAndGrade extends Component {
             socialTone_Agreeableness: res.document_tone.tone_categories[2].tones[3].score*100,
             socialTone_EmotionalRange: res.document_tone.tone_categories[2].tones[4].score*100,
           }
-          $.ajax({
-            method: 'POST',
-            url: 'http://localhost:3001/api/attempts',
-            data: {
-              attemptTranscript: this.state.watsonInput,
-              attemptTranscriptSpilt: resultSplit,
-              lcs: lcsSave,
-              lcsScore: lcsScoreSave,
-              tone: attemptTone,
-              _project: this.props.selectedProject,
-              _user:this.props.currentUserId
-            }
+          this.setState({attemptTone:attemptTone}, function(){
+            $.ajax({
+              method: 'POST',
+              url: 'http://localhost:3001/api/attempts',
+              data: {
+                attemptTranscript: this.state.watsonInput,
+                attemptTranscriptSpilt: resultSplit,
+                lcs: lcsSave,
+                lcsScore: lcsScoreSave,
+                tones: this.state.attemptTone,
+                _project: this.props.selectedProject,
+                _user:this.props.currentUserId
+              }
+            })
           })
-          }, (err) => {
-            console.log('error: ', err)
+          console.log(this.state.attemptTone);
+        }, (err) => {
+          console.log('error: ', err)
         })
-
         console.log('original spilt is ',this.state.userTranscriptSpilt);
         this.showGrade()
       }

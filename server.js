@@ -62,6 +62,8 @@ app.get('/api/projects/:userId', controllers.projects.show)
 app.get('/api/projects/showOne/:projectId', controllers.projects.showOne)
 // post new project
 app.post('/api/projects', controllers.projects.create)
+// delete one project
+app.delete('/api/projects/deleteOne/:projectId', controllers.projects.destroy)
 // get all attempts by current user
 app.get('/api/attempts/:userId', controllers.attempts.show)
 // post new attempt

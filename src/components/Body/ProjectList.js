@@ -22,7 +22,7 @@ class ProjectList extends Component {
     })
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps () {
     $.ajax({
       method: 'GET',
       url: 'http://localhost:3001/api/projects/' + this.props.currentUserId
@@ -45,7 +45,7 @@ class ProjectList extends Component {
 
     return (
       <div id='projectList' className='col m12 center-align container collection'>
-        <h2 className='center'> Your Projects                                 <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h2>
+        <h2 className='center'> Your Projects                                                     <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h2>
         { projectCards }
       </div>
     )

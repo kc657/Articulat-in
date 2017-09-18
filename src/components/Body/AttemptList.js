@@ -22,8 +22,8 @@ class AttemptList extends Component {
 
   render () {
     let attemptCards = this.state.allAttempts.map(attempts => {
-      if(attempts._project === this.props.selectedProject){
-        return(
+      if (attempts._project === this.props.selectedProject) {
+        return (
           <h1 key={attempts._id}>The LCS is: {attempts.lcs} and the score is {attempts.lcsScore}</h1>
         )
       }
@@ -34,7 +34,7 @@ class AttemptList extends Component {
         <h1 className='center'>Project: {this.props.selectedProjectTitle}</h1>
         <a className='waves-effect waves-dark btn' onClick={this.props.clickNewAttempt}>Add New Recording</a>
         {attemptCards}
-      </div>}
+      </div>
     )
   }
 }

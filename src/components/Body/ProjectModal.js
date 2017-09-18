@@ -42,7 +42,7 @@ class ProjectModal extends Component {
         <form>
           <div className='input-field'>
             <i className='material-icons prefix'>mode_edit</i>
-            <input type='text' data-id-type='newProjectTitle' className='modalState' onChange={this.props.handleChange} onKeyPress={this.onKeyPress} value={this.props.newProjectTitle} required/>
+            <input type='text' data-id-type='newProjectTitle' className='modalState' onChange={this.props.handleChange} onKeyPress={this.onKeyPress} value={this.props.newProjectTitle} required />
             <label htmlFor='project_name'>Project Name</label>
           </div>
           <div className='input-field'>

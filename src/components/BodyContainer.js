@@ -14,7 +14,6 @@ class BodyContainer extends Component {
       newProjectTranscript: '',
       selectedProject: '',
       selectedProjectTitle: '',
-      selectedProjectTranscript: '',
       currentUserId: this.props.currentUserId
     }
   }
@@ -26,7 +25,15 @@ class BodyContainer extends Component {
 
   handleProjectSelect = (e) => {
     let projectId = $(e.target).closest('.click-for-project').data('project-id')
-    this.setState({selectedProject: projectId})
+    let projectName = $(e.target).closest('.click-for-project').data('project-name')
+    this.setState({
+      selectedProject: projectId,
+      selectedProjectTitle: projectName
+    })
+  }
+
+  handleProjectDelete = (e) => {
+    
   }
 
   openModal = () => {
@@ -80,8 +87,7 @@ class BodyContainer extends Component {
   render () {
     return (
       <div className='BodyContainer'>
-        {!this.state.newAttempt ? <ProfilePage   clickNewAttempt={(e)=>this.clickNewAttempt(e)} openModal={(e)=>this.openModal(e)} handleProjectSelect={(e)=>this.handleProjectSelect(e)} selectedProject={this.state.selectedProject} currentUserId={this.props.currentUserId}/> : <SpeechAndGrade clickNewAttempt={(e)=>this.clickNewAttempt(e)} saveWatsonInput={(e)=>this.saveWatsonInput(e)} selectedProject={this.state.selectedProject} selectedProjectTranscript={this.state.selectedProjectTranscript} currentUserId={this.props.currentUserId}/>}
-
+        {!this.state.newAttempt ? <ProfilePage clickNewAttempt={(e)=>this.clickNewAttempt(e)} openModal={(e)=>this.openModal(e)} handleProjectSelect={(e)=>this.handleProjectSelect(e)} selectedProject={this.state.selectedProject} selectedProjectTitle={this.state.selectedProjectTitle} currentUserId={this.props.currentUserId}/> : <SpeechAndGrade clickNewAttempt={(e)=>this.clickNewAttempt(e)} saveWatsonInput={(e)=>this.saveWatsonInput(e)} selectedProjectTitle={this.state.selectedProjectTitle} selectedProject={this.state.selectedProject}  currentUserId={this.props.currentUserId}/>}
         <ProjectModal isModalOpen={this.state.isModalOpen} newProjectTitle={this.state.newProjectTitle} newProjectTranscript={this.state.newProjectTranscript} openModal={(e)=>this.openModal(e)} handleChange={(e)=>this.handleChange(e)} onSubmitTranscript={(e)=>this.onSubmitTranscript(e)}/>
       </div>
     )

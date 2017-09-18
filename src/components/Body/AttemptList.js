@@ -28,11 +28,12 @@ class AttemptList extends Component {
           <h1 key={attempts._id}>The LCS is: {attempts.lcs} and the score is {attempts.lcsScore}</h1>
         )
       }
+      return null
     })
     return (
       <div>
-        <h1 className='center'>Previous Attempts</h1>
-        <a className='waves-effect waves-dark btn' onClick={this.props.clickNewAttempt}>Switch</a>
+        <h1 className='center'>Project: {this.props.selectedProjectTitle}</h1>
+        <a className='waves-effect waves-dark btn' onClick={this.props.clickNewAttempt}>Add New Recording</a>
         {attemptCards}
       </div>
     )
@@ -40,20 +41,3 @@ class AttemptList extends Component {
 }
 
 export default AttemptList
-
-// render () {
-//   let projectCards = this.state.allAttempts.map(project => {
-//     return (
-//       <a key={project._id} id='projectCard' className='collection-item click-for-project' data-project-name={project.title} data-project-id={project._id} onClick={this.props.handleProjectSelect}>
-//         { project.title }
-//       </a>
-//     )
-//   })
-//
-//   return (
-//     <div id='projectList' className='col m12 center-align container collection'>
-//       <h2 className='center'> Your Projects                                 <a className='btn-floating btn-large waves-effect waves-light red' onClick={this.props.openModal}><i className='material-icons'>add</i></a></h2>
-//       { projectCards }
-//     </div>
-//   )
-// }

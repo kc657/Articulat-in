@@ -80,8 +80,8 @@ class NavBar extends Component {
     if (!this.props.isLoggedIn) {
       return (
         <header>
-          <nav>
-            <a className='brand-logo left'><i className='material-icons left'>sentiment_very_satisfied</i>Articulat.in</a>
+          <nav className='black'>
+            <a className='brand-logo left '>Articulat.in</a>
             <ul id='navList' className='right'>
               <li><a onClick={(event)=>this.toggleSignInModal(event)}>Sign In</a></li>
               <li><a onClick={(event)=>this.toggleSignupModal(event)}>Sign Up</a></li>
@@ -96,9 +96,9 @@ class NavBar extends Component {
     }
     return (
       <header>
-        <nav>
-          <a className='brand-logo left'><i className='material-icons left'>sentiment_very_satisfied</i>Welcome</a>
-          <ul id='navList' className='right hide-on-med-and-down'>
+        <nav className='black'>
+          <a className='brand-logo left'>Articulat.in</a>
+          <ul id='navList' className='right'>
             <li><a>Welcome Back!</a></li>
             <li><a onClick={this.props.handleLogOut}>Log Out</a></li>
           </ul>

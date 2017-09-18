@@ -1,12 +1,94 @@
 import React, { Component } from 'react'
-import SpeechToTextBox from './Body/SpeechToTextBox'
-// import { BrowserRouter, Route, Link } from 'react-router-dom'
+import $ from 'jquery'
+import SpeechAndGrade from './Body/SpeechAndGrade'
+import ProfilePage from './Body/ProfilePage'
+import ProjectModal from './Body/ProjectModal'
 
 class BodyContainer extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      isModalOpen: false,
+      newAttempt: false,
+      newProjectTitle: '',
+      newProjectTranscript: '',
+      selectedProject: '',
+      selectedProjectTitle: '',
+      currentUserId: this.props.currentUserId
+    }
+  }
+
+  handleChange = (e) => {
+    let formId = $(e.target).closest('.modalState').data('id-type')
+    this.setState({[formId]: e.target.value})
+  }
+
+  handleProjectSelect = (e) => {
+    let projectId = $(e.target).closest('.click-for-project').data('project-id')
+    let projectName = $(e.target).closest('.click-for-project').data('project-name')
+    this.setState({
+      selectedProject: projectId,
+      selectedProjectTitle: projectName
+    })
+  }
+
+  handleProjectDelete = (e) => {
+    
+  }
+
+  openModal = () => {
+    this.setState({
+      isModalOpen : !this.state.isModalOpen,
+      newProjectTitle: '',
+      newProjectTranscript: ''
+    })
+  }
+
+  clickNewAttempt = () => {
+    this.setState({newAttempt: !this.state.newAttempt})
+  }
+
+  onSubmitTranscript = (e) => {
+    e.preventDefault()
+    let result = []
+    let hash = {}
+    let words = this.state.newProjectTranscript.replace(/[^A-Z0-9]/ig, " ").split(" ")
+    words.forEach((word) => {
+      word = word.toLowerCase()
+      if (word !== "") {
+        if (!hash[word]) {
+          hash[word] = { name: word, count: 0 };
+          result.push(hash[word])
+        }
+        hash[word].count++
+      }
+    })
+    let transcriptSpilt = result.sort((a, b) => { return b.count - a.count;})
+    console.log('NOTICE ME PROPS',this.props.currentUserId)
+    $.ajax({
+      method: 'POST',
+      url: 'http://localhost:3001/api/projects',
+      data: {
+        title: this.state.newProjectTitle,
+        transcript: this.state.newProjectTranscript,
+        transcriptSpilt: transcriptSpilt,
+        _user: this.props.currentUserId
+      }
+    }).then(res=>{
+      this.setState({
+        newProjectTitle: '',
+        newProjectTranscript: ''
+      })
+      console.log(this.state.projectsAdded);
+      this.openModal()
+    })
+  }
+
   render () {
     return (
       <div className='BodyContainer'>
-        <SpeechToTextBox />
+        {!this.state.newAttempt ? <ProfilePage clickNewAttempt={(e)=>this.clickNewAttempt(e)} openModal={(e)=>this.openModal(e)} handleProjectSelect={(e)=>this.handleProjectSelect(e)} selectedProject={this.state.selectedProject} selectedProjectTitle={this.state.selectedProjectTitle} currentUserId={this.props.currentUserId}/> : <SpeechAndGrade clickNewAttempt={(e)=>this.clickNewAttempt(e)} saveWatsonInput={(e)=>this.saveWatsonInput(e)} selectedProjectTitle={this.state.selectedProjectTitle} selectedProject={this.state.selectedProject}  currentUserId={this.props.currentUserId}/>}
+        <ProjectModal isModalOpen={this.state.isModalOpen} newProjectTitle={this.state.newProjectTitle} newProjectTranscript={this.state.newProjectTranscript} openModal={(e)=>this.openModal(e)} handleChange={(e)=>this.handleChange(e)} onSubmitTranscript={(e)=>this.onSubmitTranscript(e)}/>
       </div>
     )
   }

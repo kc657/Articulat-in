@@ -15,8 +15,8 @@ class SpeechToTextBox extends Component {
   startRecording = () => {
     this.setState({isRecording: true})
     let stream = null
-    let recognizeMic = require('watson-speech/speech-to-text/recognize-microphone')
-    $.when($.get('/api/watson/token')).done(
+    const recognizeMic = require('watson-speech/speech-to-text/recognize-microphone')
+    $.when($.get('http://localhost:3001/api/watson/token')).done(
       (token) => {
         stream = recognizeMic({
           token: token,
@@ -33,27 +33,27 @@ class SpeechToTextBox extends Component {
 
   stopRecording = () => {
     this.setState({isRecording: false})
-    $("#speech-only").append("Hello");
     this.state.stream.stop('error', function (err) {
       console.log(this.state.stream);
       console.log(err)
     })
   }
 
-  handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
       if (this.state.userInput === ''){
         this.setState({confirmation: true})
         console.log('If you are sure, press Enter again')
       } else if(this.state.userInput !== ''){
         console.log('saved!');
         console.log(this.state.userInput);
+        this.props.showGrade()
       }
     }
   }
 
-  saveUserInput = (event) => {
-    this.setState({userInput: event.target.value})
+  saveUserInput = (e) => {
+    this.setState({userInput: e.target.value})
   }
 
   render () {
@@ -70,7 +70,7 @@ class SpeechToTextBox extends Component {
         <div className='row col m6'>
           <center>
             <form>
-              <textarea className='materialize-textarea speech-only' id='speech' data-id-type='userInput' onChange={this.saveUserInput} placeholder='Spoken output goes here' onKeyPress={this.handleKeyPress}></textarea>
+              <textarea className='materialize-textarea speech-only' id='speech' data-id-type='userInput' onChange={this.props.saveWatsonInput} placeholder='Spoken output goes here' onKeyPress={this.props.triggerWatsonSave}></textarea>
               {!this.state.confirmation? <p>Select text and press enter after completion to review scorecard...</p>:<p>Press Enter Again</p>}
             </form>
           </center>

@@ -5,8 +5,7 @@ class AttemptList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      allAttempts: [],
-      selectedProject: this.props.selectedProject,
+      allAttempts: []
     }
   }
   componentWillMount () {
@@ -35,7 +34,7 @@ class AttemptList extends Component {
         <h1 className='center'>Project: {this.props.selectedProjectTitle}</h1>
         <a className='waves-effect waves-dark btn' onClick={this.props.clickNewAttempt}>Add New Recording</a>
         {attemptCards}
-      </div>
+      </div>}
     )
   }
 }

@@ -6,6 +6,7 @@ const ProjectSchema = new Schema({
   title: String,
   transcript: String,
   transcriptSpilt: Array,
+  tones: Object,
   dateDue: Date,
   dateCreated: { type: Date, default: Date.now },
   userId: String,

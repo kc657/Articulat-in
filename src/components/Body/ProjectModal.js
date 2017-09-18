@@ -30,7 +30,7 @@ const customStyles = {
 class ProjectModal extends Component {
   onKeyPress (e) {
     if (e.which === 13) {
-      e.preDefault()
+      e.preventDefault()
     }
   }
 
@@ -42,7 +42,7 @@ class ProjectModal extends Component {
         <form>
           <div className='input-field'>
             <i className='material-icons prefix'>mode_edit</i>
-            <input type='text' data-id-type='newProjectTitle' className='modalState' onChange={this.props.handleChange} onKeyPress={this.onKeyPress} value={this.props.newProjectTitle} />
+            <input type='text' data-id-type='newProjectTitle' className='modalState' onChange={this.props.handleChange} onKeyPress={this.onKeyPress} value={this.props.newProjectTitle} required/>
             <label htmlFor='project_name'>Project Name</label>
           </div>
           <div className='input-field'>
@@ -51,7 +51,7 @@ class ProjectModal extends Component {
             <label htmlFor='icon_prefix2'>Input Transcript</label>
           </div>
           <div className='input-field col m8 offset-3'>
-            <button className='btn waves-effect waves-light right' type='submit' onClick={this.props.onSubmitTranscript} name='action'>Submit
+            <button className='btn waves-effect waves-light right' type='submit' onClick={this.props.onProjectSubmit} name='action'>Submit
               <i className='material-icons right' />
             </button>
           </div>

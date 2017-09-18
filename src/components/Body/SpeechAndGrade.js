@@ -92,18 +92,42 @@ class SpeechAndGrade extends Component {
 
         console.log('The LCS string is ', lcsSave,' and the length is ', lcsScoreSave)
 
-        $.ajax({
-          method: 'POST',
-          url: 'http://localhost:3001/api/attempts',
-          data: {
-            attemptTranscriptSpilt: resultSplit,
-            attemptTranscript: this.state.watsonInput,
-            lcs: lcsSave,
-            lcsScore: lcsScoreSave,
-            _project: this.props.selectedProject,
-            _user:this.props.currentUserId
+        $.ajax({method:'GET',
+          url: 'http://localhost:3001/api/watson/tone/',
+          data:{'myText': this.state.watsonInput}})
+        .then((res) => {
+          let attemptTone = {
+            emotionalTone_Anger: res.document_tone.tone_categories[0].tones[0].score*100,
+            emotionalTone_Disgust: res.document_tone.tone_categories[0].tones[1].score*100,
+            emotionalTone_Fear: res.document_tone.tone_categories[0].tones[2].score*100,
+            emotionalTone_Joy: res.document_tone.tone_categories[0].tones[3].score*100,
+            emotionalTone_Sadness: res.document_tone.tone_categories[0].tones[4].score*100,
+            languageTone_Analytical: res.document_tone.tone_categories[1].tones[0].score*100,
+            languageTone_Confident: res.document_tone.tone_categories[1].tones[1].score*100,
+            languageTone_Tentative: res.document_tone.tone_categories[1].tones[2].score*100,
+            socialTone_Openness: res.document_tone.tone_categories[2].tones[0].score*100,
+            socialTone_Conscientiousness: res.document_tone.tone_categories[2].tones[1].score*100,
+            socialTone_Etraversion: res.document_tone.tone_categories[2].tones[2].score*100,
+            socialTone_Agreeableness: res.document_tone.tone_categories[2].tones[3].score*100,
+            socialTone_EmotionalRange: res.document_tone.tone_categories[2].tones[4].score*100,
           }
+          $.ajax({
+            method: 'POST',
+            url: 'http://localhost:3001/api/attempts',
+            data: {
+              attemptTranscript: this.state.watsonInput,
+              attemptTranscriptSpilt: resultSplit,
+              lcs: lcsSave,
+              lcsScore: lcsScoreSave,
+              tone: attemptTone,
+              _project: this.props.selectedProject,
+              _user:this.props.currentUserId
+            }
+          })
+          }, (err) => {
+            console.log('error: ', err)
         })
+
         console.log('original spilt is ',this.state.userTranscriptSpilt);
         this.showGrade()
       }

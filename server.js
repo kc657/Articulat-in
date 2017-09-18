@@ -68,6 +68,8 @@ app.get('/api/attempts/:userId', controllers.attempts.show)
 app.post('/api/attempts', controllers.attempts.create)
 // watson token route
 app.get('/api/watson/token', controllers.watson.token)
+// watson toneAnalyzer
+app.get('/api/watson/tone', controllers.watson.toneAnalyzer)
 // auth routes
 app.post('/signup', function signup (req, res) {
   console.log(`${req.body.username} ${req.body.password}`)

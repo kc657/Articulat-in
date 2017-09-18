@@ -9,10 +9,12 @@ class ProjectList extends Component {
       currentUserId: this.props.currentUserId
     }
   }
+
   componentWillMount () {
+    console.log('hello');
     $.ajax({
       method: 'GET',
-      url: 'http://localhost:3001/api/projects/' + this.state.currentUserId
+      url: 'http://localhost:3001/api/projects/' + this.props.currentUserId
     })
     .then((res) => {
       this.setState({allProjects: res})
@@ -21,10 +23,11 @@ class ProjectList extends Component {
     })
   }
 
-  componentWillUpdate () {
+  componentWillReceiveProps() {
+    console.log('bye');
     $.ajax({
       method: 'GET',
-      url: 'http://localhost:3001/api/projects/' + this.state.currentUserId
+      url: 'http://localhost:3001/api/projects/' + this.props.currentUserId
     })
     .then((res) => {
       this.setState({allProjects: res})

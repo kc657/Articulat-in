@@ -10,6 +10,16 @@ function show (req, res) {
   })
 }
 
+function showOne (req, res) {
+  let project_id = req.params.projectId
+  db.Project.find({_id: project_id}, function (err, oneProjects) {
+    if (err) {
+      console.log('error finding project by projectId', err)
+    }
+    res.json(oneProjects)
+  })
+}
+
 function create (req, res) {
   db.Project.create(req.body, function (err, newProject) {
     if (err) {
@@ -22,5 +32,6 @@ function create (req, res) {
 
 module.exports = {
   show: show,
+  showOne: showOne,
   create: create
 }

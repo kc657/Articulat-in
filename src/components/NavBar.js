@@ -63,8 +63,6 @@ class NavBar extends Component {
       }
     })
     .then((res) => {
-      console.log(res, 'User is authenticated')
-      console.log(res._id);
       this.props.setGlobalUserId(res._id)
       this.toggleSignInModal()
     },

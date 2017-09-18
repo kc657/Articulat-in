@@ -11,8 +11,16 @@ class SpeechAndGrade extends Component {
       watsonInput: '',
       userTranscript: '',
       userTranscriptSpilt: null,
-      currentProject:  this.props.selectedProject
     }
+  }
+
+  componentDidMount(){
+    $.ajax({method:'GET',url: 'http://localhost:3001/api/projects/showOne/' + this.props.selectedProject})
+    .then((res) => {
+      this.setState({userTranscript: res[0].transcript})
+    }, (err) => {
+      console.log('error: ', err)
+    })
   }
 
   showGrade = () => {
@@ -80,7 +88,8 @@ class SpeechAndGrade extends Component {
         	return lcs.join('');
         }
 
-        let lcsSave = lcs('selectedProjectTranscript',lcsWatsonInput)
+        let lcsSave = lcs(this.state.userTranscript,lcsWatsonInput)
+        console.log(this.state.userTranscript);
         let lcsScoreSave = (lcsSave).length
 
         console.log('The LCS string is ', lcsSave,' and the length is ', lcsScoreSave)

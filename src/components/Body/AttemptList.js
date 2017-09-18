@@ -15,7 +15,6 @@ class AttemptList extends Component {
       url: 'http://localhost:3001/api/attempts/' + this.props.currentUserId
     })
     .then((res) => {
-      console.log(res);
       this.setState({allAttempts: res})
     }, (err) => {
       console.log('error: ', err)
@@ -23,10 +22,18 @@ class AttemptList extends Component {
   }
 
   render () {
+    let attemptCards = this.state.allAttempts.map(attempts => {
+      if(attempts._project === this.props.selectedProject){
+        return(
+          <h1 key={attempts._id}>The LCS is: {attempts.lcs} and the score is {attempts.lcsScore}</h1>
+        )
+      }
+    })
     return (
       <div>
         <h1 className='center'>Previous Attempts</h1>
         <a className='waves-effect waves-dark btn' onClick={this.props.clickNewAttempt}>Switch</a>
+        {attemptCards}
       </div>
     )
   }

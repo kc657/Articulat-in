@@ -72,6 +72,7 @@ class BodyContainer extends Component {
         newProjectTitle: '',
         newProjectTranscript: ''
       })
+      console.log(this.state.projectsAdded);
       this.openModal()
     })
   }

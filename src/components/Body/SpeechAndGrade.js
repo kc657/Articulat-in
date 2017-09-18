@@ -17,7 +17,9 @@ class SpeechAndGrade extends Component {
   componentDidMount(){
     $.ajax({method:'GET',url: 'http://localhost:3001/api/projects/showOne/' + this.props.selectedProject})
     .then((res) => {
-      this.setState({userTranscript: res[0].transcript})
+      this.setState({
+        userTranscript: res[0].transcript,
+        userTranscriptSpilt: res[0].transcriptSpilt})
     }, (err) => {
       console.log('error: ', err)
     })
@@ -25,7 +27,6 @@ class SpeechAndGrade extends Component {
 
   showGrade = () => {
     this.setState({isGrading: !this.state.isGrading})
-    console.log('State of grade is ', this.state.isGrading);
   }
 
   triggerWatsonSave = (e) => {
@@ -34,8 +35,6 @@ class SpeechAndGrade extends Component {
         this.setState({confirmation: true})
         console.log('If you are sure, press Enter again')
       } else if(this.state.watsonInput !== ''){
-        console.log('saved!');
-        console.log(this.state.watsonInput);
         let result = []
         let hash = {}
         let words = this.state.watsonInput.replace(/[^A-Z0-9]/ig, " ").split(" ")
@@ -50,12 +49,12 @@ class SpeechAndGrade extends Component {
           }
         })
         let resultSplit = result.sort((a, b) => { return b.count - a.count;})
-        console.log(resultSplit);
+        console.log('input spilt is ',resultSplit);
 
         let lcsWatsonInput = this.state.watsonInput.replace(/[^A-Z0-9]/ig, "")
 
         function lcs(x,y){
-        	var s,i,j,m,n,
+        	let s,i,j,m,n,
         		lcs=[],row=[],c=[],
         		left,diag,latch;
         	//make sure shorter string is the column string
@@ -89,7 +88,6 @@ class SpeechAndGrade extends Component {
         }
 
         let lcsSave = lcs(this.state.userTranscript,lcsWatsonInput)
-        console.log(this.state.userTranscript);
         let lcsScoreSave = (lcsSave).length
 
         console.log('The LCS string is ', lcsSave,' and the length is ', lcsScoreSave)
@@ -106,8 +104,7 @@ class SpeechAndGrade extends Component {
             _user:this.props.currentUserId
           }
         })
-        this.setState({userTranscriptSpilt:1})
-        console.log(this.state.userTranscriptSpilt);
+        console.log('original spilt is ',this.state.userTranscriptSpilt);
         this.showGrade()
       }
     }
@@ -115,7 +112,6 @@ class SpeechAndGrade extends Component {
 
   saveWatsonInput = (e) => {
     this.setState({watsonInput: e.target.value})
-    console.log(this.state.watsonInput);
   }
 
   render () {

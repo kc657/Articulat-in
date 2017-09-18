@@ -33,7 +33,6 @@ class SpeechToTextBox extends Component {
 
   stopRecording = () => {
     this.setState({isRecording: false})
-    $('#speech-only').append('Hello');
     this.state.stream.stop('error', function (err) {
       console.log(this.state.stream);
       console.log(err)

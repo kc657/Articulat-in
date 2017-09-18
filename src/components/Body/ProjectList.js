@@ -11,7 +11,6 @@ class ProjectList extends Component {
   }
 
   componentWillMount () {
-    console.log('hello');
     $.ajax({
       method: 'GET',
       url: 'http://localhost:3001/api/projects/' + this.props.currentUserId
@@ -24,7 +23,6 @@ class ProjectList extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log('bye');
     $.ajax({
       method: 'GET',
       url: 'http://localhost:3001/api/projects/' + this.props.currentUserId

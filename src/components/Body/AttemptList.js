@@ -40,7 +40,6 @@ class AttemptList extends Component {
 
   render () {
     let attemptCards = this.state.allAttempts.slice(0).reverse().map(attempts => {
-      console.log(attempts.tones.emotionalTone_Anger);
       if (attempts._project === this.props.selectedProject) {
         let date = new Date(attempts.dateCreated)
         let day = date.getDate()
@@ -58,7 +57,7 @@ class AttemptList extends Component {
         }
         let averageScore = roundTo(((attempts.lcsScore + attempts.commonWordCount)/2),2)
         return (
-          <div>
+          <div key={attempts.key}>
           <h5 className='center'>Score Card -- {averageScore}% -- Created on: {month}/{day} {hour}:{minute}</h5>
           <ul className='collection' key= {attempts.key}>
             <li className='collection-item avatar'>

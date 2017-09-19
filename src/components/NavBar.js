@@ -79,28 +79,21 @@ class NavBar extends Component {
   render () {
     if (!this.props.isLoggedIn) {
       return (
-        <header>
-          <nav className='black'>
-            <a className='brand-logo left '>Articulat.in</a>
-            <ul id='navList' className='right'>
-              <li><a onClick={(e)=>this.toggleSignInModal(e)}>Sign In</a></li>
-              <li><a onClick={(e)=>this.toggleSignupModal(e)}>Sign Up</a></li>
-            </ul>
-          </nav>
-          <SignupModal isSignUpOpen={this.state.isSignUpOpen} toggleSignupModal={(e)=>this.toggleSignupModal(e)} handleSignupSubmit={(e)=>this.handleSignupSubmit(e)} handleChange={(e)=>this.handleChange(e)}
-          />
-          <SignInModal isSignInOpen={this.state.isSignInOpen} toggleSignInModal={(e)=>this.toggleSignInModal(e)} handleSignInSubmit={(e)=>this.handleSignInSubmit(e)} handleChange={(e)=>this.handleChange(e)}
-          />
-        </header>
+        <div>
+            <SignupModal isSignUpOpen={this.state.isSignUpOpen} toggleSignupModal={(e)=>this.toggleSignupModal(e)} handleSignupSubmit={(e)=>this.handleSignupSubmit(e)} handleChange={(e)=>this.handleChange(e)}
+            />
+            <SignInModal isSignInOpen={this.state.isSignInOpen} toggleSignInModal={(e)=>this.toggleSignInModal(e)} handleSignInSubmit={(e)=>this.handleSignInSubmit(e)} handleChange={(e)=>this.handleChange(e)}
+            />
+          </div>
       )
     }
     return (
       <header>
         <nav className='black'>
-          <a className='brand-logo left'>Articulat.in</a>
+          <a className='brand-logo left light-primary-text'>Articulat.in</a>
           <ul id='navList' className='right'>
-            <li><a>Welcome Back!</a></li>
-            <li><a onClick={this.props.handleLogOut}>Log Out</a></li>
+            <li><a className='light-primary-text'>Welcome Back!</a></li>
+            <li><a onClick={this.props.handleLogOut} className='light-primary-text'>Log Out</a></li>
           </ul>
         </nav>
       </header>

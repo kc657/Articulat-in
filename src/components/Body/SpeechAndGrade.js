@@ -55,8 +55,6 @@ class SpeechAndGrade extends Component {
         let wordRepeatPercent = ((wordRepeatCount)/(userInputSpilt.length)*100)
 
         //* Creating LCS score *//
-        let result = []
-        let hash = {}
         let lcsWatsonInput = this.state.watsonInput.replace(/[^A-Z0-9]/ig, "")
         function lcs(x,y){
         	let s,i,j,m,n,

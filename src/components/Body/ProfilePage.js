@@ -6,10 +6,10 @@ class ProfilePage extends Component {
   render () {
     return (
       <div className='ProfilePage row'>
-        <div className='col s12 m4'>
+        <div className='col s12 m6'>
           <ProjectList openModal={this.props.openModal} handleProjectSelect={this.props.handleProjectSelect} currentUserId={this.props.currentUserId} />
         </div>
-        <div className='col s12 m8'>
+        <div className='col s12 m6'>
           {(this.props.selectedProject) ? <AttemptList selectedProjectTone={this.props.selectedProjectTone} clickNewAttempt={this.props.clickNewAttempt} handleProjectDelete={this.props.handleProjectDelete} selectedProject={this.props.selectedProject} selectedProjectTitle={this.props.selectedProjectTitle} currentUserId={this.props.currentUserId} /> :
           <div className='instructions center'>
             <h2>Instructions</h2>

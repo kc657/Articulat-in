@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
+import ReactDom from 'react-dom'
 import $ from 'jquery'
 import SpeechAndGrade from './Body/SpeechAndGrade'
 import ProfilePage from './Body/ProfilePage'
 import ProjectModal from './Body/ProjectModal'
 
 class BodyContainer extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       isModalOpen: false,
@@ -19,9 +20,15 @@ class BodyContainer extends Component {
     }
   }
 
+  componentDidUpdate = () => {
+    ReactDom.findDOMNode(this).scrollIntoView()
+  }
+
   handleChange = (e) => {
     let formId = $(e.target).closest('.modalState').data('id-type')
-    this.setState({[formId]: e.target.value})
+    this.setState({
+      [formId]: e.target.value
+    })
   }
 
   handleProjectSelect = (e) => {
@@ -42,38 +49,55 @@ class BodyContainer extends Component {
 
   openModal = () => {
     this.setState({
-      isModalOpen : !this.state.isModalOpen,
+      isModalOpen: !this.state.isModalOpen,
       newProjectTitle: '',
       newProjectTranscript: ''
     })
   }
 
   clickNewAttempt = () => {
-    this.setState({newAttempt: !this.state.newAttempt})
+    this.setState({
+      newAttempt: !this.state.newAttempt
+    })
   }
 
   onProjectSubmit = (e) => {
     e.preventDefault()
-    $.ajax({method:'GET',
-      url: 'http://localhost:3001/api/watson/tone/',
-      data:{'myText': this.state.newProjectTranscript}})
-    .then((res) => {
-        let projectTone = {
-          emotionalTone_Anger: res.document_tone.tone_categories[0].tones[0].score*100,
-          emotionalTone_Disgust: res.document_tone.tone_categories[0].tones[1].score*100,
-          emotionalTone_Fear: res.document_tone.tone_categories[0].tones[2].score*100,
-          emotionalTone_Joy: res.document_tone.tone_categories[0].tones[3].score*100,
-          emotionalTone_Sadness: res.document_tone.tone_categories[0].tones[4].score*100,
-          languageTone_Analytical: res.document_tone.tone_categories[1].tones[0].score*100,
-          languageTone_Confident: res.document_tone.tone_categories[1].tones[1].score*100,
-          languageTone_Tentative: res.document_tone.tone_categories[1].tones[2].score*100,
-          socialTone_Openness: res.document_tone.tone_categories[2].tones[0].score*100,
-          socialTone_Conscientiousness: res.document_tone.tone_categories[2].tones[1].score*100,
-          socialTone_Etraversion: res.document_tone.tone_categories[2].tones[2].score*100,
-          socialTone_Agreeableness: res.document_tone.tone_categories[2].tones[3].score*100,
-          socialTone_EmotionalRange: res.document_tone.tone_categories[2].tones[4].score*100,
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3001/api/watson/tone/',
+        data: {
+          'myText': this.state.newProjectTranscript
         }
-        this.setState({newProjectTone: projectTone})
+      })
+      .then((res) => {
+        let roundTo = (n, digits) => {
+          if (digits === undefined) {
+            return('Did Not Detect');
+          }
+          var multiplicator = Math.pow(10, digits)
+          n = parseFloat((n * multiplicator).toFixed(11))
+          var test = (Math.round(n) / multiplicator)
+          return +(test.toFixed(digits))
+        }
+        let projectTone = {
+          emotionalTone_Anger: roundTo((res.document_tone.tone_categories[0].tones[0].score * 100), 2),
+          emotionalTone_Disgust: roundTo((res.document_tone.tone_categories[0].tones[1].score * 100), 2),
+          emotionalTone_Fear: roundTo((res.document_tone.tone_categories[0].tones[2].score * 100), 2),
+          emotionalTone_Joy: roundTo((res.document_tone.tone_categories[0].tones[3].score * 100), 2),
+          emotionalTone_Sadness: roundTo((res.document_tone.tone_categories[0].tones[4].score * 100), 2),
+          languageTone_Analytical: roundTo((res.document_tone.tone_categories[1].tones[0].score * 100), 2),
+          languageTone_Confident: roundTo((res.document_tone.tone_categories[1].tones[1].score * 100), 2),
+          languageTone_Tentative: roundTo((res.document_tone.tone_categories[1].tones[2].score * 100), 2),
+          socialTone_Openness: roundTo((res.document_tone.tone_categories[2].tones[0].score * 100), 2),
+          socialTone_Conscientiousness: roundTo((res.document_tone.tone_categories[2].tones[1].score * 100), 2),
+          socialTone_Etraversion: roundTo((res.document_tone.tone_categories[2].tones[2].score * 100), 2),
+          socialTone_Agreeableness: roundTo((res.document_tone.tone_categories[2].tones[3].score * 100), 2),
+          socialTone_EmotionalRange: roundTo((res.document_tone.tone_categories[2].tones[4].score * 100), 2),
+        }
+        this.setState({
+          newProjectTone: projectTone
+        })
         let result = []
         let hash = {}
         let words = this.state.newProjectTranscript.replace(/[^A-Z0-9]/ig, " ").split(" ")
@@ -81,13 +105,18 @@ class BodyContainer extends Component {
           word = word.toLowerCase()
           if (word !== "") {
             if (!hash[word]) {
-              hash[word] = { name: word, count: 0 };
+              hash[word] = {
+                name: word,
+                count: 0
+              };
               result.push(hash[word])
             }
             hash[word].count++
           }
         })
-        let transcriptSpilt = result.sort((a, b) => { return b.count - a.count;})
+        let transcriptSpilt = result.sort((a, b) => {
+          return b.count - a.count;
+        })
         $.ajax({
           method: 'POST',
           url: 'http://localhost:3001/api/projects',
@@ -98,7 +127,7 @@ class BodyContainer extends Component {
             transcriptSpilt: transcriptSpilt,
             _user: this.props.currentUserId,
           }
-        }).then(res=>{
+        }).then(res => {
           this.setState({
             newProjectTitle: '',
             newProjectTranscript: ''
@@ -107,10 +136,10 @@ class BodyContainer extends Component {
         })
       }, (err) => {
         console.log('error: ', err)
-    })
+      })
   }
 
-  render () {
+  render() {
     return (
       <div className='BodyContainer'>
         {!this.state.newAttempt ? <ProfilePage clickNewAttempt={(e)=>this.clickNewAttempt(e)} openModal={(e)=>this.openModal(e)} handleProjectSelect={(e)=>this.handleProjectSelect(e)} handleProjectDelete={(e)=>this.handleProjectDelete(e)} selectedProject={this.state.selectedProject} selectedProjectTitle={this.state.selectedProjectTitle} currentUserId={this.props.currentUserId} /> : <SpeechAndGrade clickNewAttempt={(e)=>this.clickNewAttempt(e)} saveWatsonInput={(e)=>this.saveWatsonInput(e)} selectedProjectTitle={this.state.selectedProjectTitle} selectedProject={this.state.selectedProject}  currentUserId={this.props.currentUserId}/>}

@@ -37,7 +37,7 @@ class ProjectList extends Component {
   render () {
     let projectCards = this.state.allProjects.slice(0).reverse().map(project => {
       return (
-        <a key={project._id} id='projectCard' className='collection-item click-for-project' data-project-name={project.title} data-project-id={project._id} onClick={this.props.handleProjectSelect} data-project-transcript={project.transcript}>
+        <a key={project._id} id='projectCard' className='collection-item click-for-project' data-project-name={project.title} data-project-id={project._id} data-project-transcript={project.transcript} onClick={this.props.handleProjectSelect}>
           <h1> { project.title } </h1>
           <ul className='collection'>
             <li className='collection-item avatar'>

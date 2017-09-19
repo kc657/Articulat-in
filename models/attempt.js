@@ -11,7 +11,8 @@ const AttemptSchema = new Schema({
   _project: {type: Schema.Types.ObjectId, ref: 'Project'},
   _user: {type: Schema.Types.ObjectId, ref: 'User'},
   dateCreated: { type: Date, default: Date.now },
-  tones: Object
+  tones: Object,
+  commonWordCount: Number
 })
 
 const Attempt = mongoose.model('Attempt', AttemptSchema)

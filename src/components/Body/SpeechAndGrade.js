@@ -11,7 +11,8 @@ class SpeechAndGrade extends Component {
       watsonInput: '',
       userTranscript: '',
       userTranscriptSpilt: null,
-      attemptTone: {}
+      attemptTone: {},
+      wordRepeatCount: 0
     }
   }
 
@@ -36,10 +37,9 @@ class SpeechAndGrade extends Component {
         alert('Press Enter Again Please')
         this.setState({confirmation: true})
       } else if(this.state.watsonInput !== ''){
-        let result = []
-        let hash = {}
-        let watsonInputSpilt = this.state.watsonInput.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/[^A-Z0-9]/ig, " ").split(" ")
-        let userInputSpilt = this.state.userTranscript.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/[^A-Z0-9]/ig, " ").split(" ")
+        //* Creating common word score *//
+        let watsonInputSpilt = this.state.watsonInput.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/[^A-Z0-9]/ig, " ").split(" ")
+        let userInputSpilt = this.state.userTranscript.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/[^A-Z0-9]/ig, " ").split(" ")
         let watsonInputHash = {}
         watsonInputSpilt.forEach(word => {
           watsonInputHash[word] = watsonInputHash[word] ? watsonInputHash[word] + 1 : 1;
@@ -51,15 +51,17 @@ class SpeechAndGrade extends Component {
         let wordRepeatCount = 0
         for (let i in userInputHash) {
            wordRepeatCount += Math.min(userInputHash[i] ? userInputHash[i] : 0, watsonInputHash[i] ? watsonInputHash[i] : 0);
-           console.log(wordRepeatCount)
          }
+        let wordRepeatPercent = ((wordRepeatCount)/(userInputSpilt.length)*100)
 
+        //* Creating LCS score *//
+        let result = []
+        let hash = {}
         let lcsWatsonInput = this.state.watsonInput.replace(/[^A-Z0-9]/ig, "")
         function lcs(x,y){
         	let s,i,j,m,n,
         		lcs=[],row=[],c=[],
         		left,diag,latch;
-        	//make sure shorter string is the column string
         	if(m<n){s=x;x=y;y=s;}
         	m = x.length;
         	n = y.length;
@@ -91,28 +93,37 @@ class SpeechAndGrade extends Component {
         let userTranscriptLength = this.state.userTranscript.replace(/[^A-Z0-9]/ig, "").length
         let lcsSave = lcs(this.state.userTranscript,lcsWatsonInput)
         let lcsScoreSave = (((lcsSave).length)/userTranscriptLength)*100
-        console.log(lcsScoreSave);
 
-        console.log('The LCS string is ', lcsSave,' and the score is ', lcsScoreSave)
+        //* Fetching tone from API and then posting attempt on success *//
         $.ajax({method:'GET',
           url: 'http://localhost:3001/api/watson/tone/',
           data:{'myText': this.state.watsonInput}})
         .then((res) => {
-          let attemptTone = {
-            emotionalTone_Anger: res.document_tone.tone_categories[0].tones[0].score*100,
-            emotionalTone_Disgust: res.document_tone.tone_categories[0].tones[1].score*100,
-            emotionalTone_Fear: res.document_tone.tone_categories[0].tones[2].score*100,
-            emotionalTone_Joy: res.document_tone.tone_categories[0].tones[3].score*100,
-            emotionalTone_Sadness: res.document_tone.tone_categories[0].tones[4].score*100,
-            languageTone_Analytical: res.document_tone.tone_categories[1].tones[0].score*100,
-            languageTone_Confident: res.document_tone.tone_categories[1].tones[1].score*100,
-            languageTone_Tentative: res.document_tone.tone_categories[1].tones[2].score*100,
-            socialTone_Openness: res.document_tone.tone_categories[2].tones[0].score*100,
-            socialTone_Conscientiousness: res.document_tone.tone_categories[2].tones[1].score*100,
-            socialTone_Etraversion: res.document_tone.tone_categories[2].tones[2].score*100,
-            socialTone_Agreeableness: res.document_tone.tone_categories[2].tones[3].score*100,
-            socialTone_EmotionalRange: res.document_tone.tone_categories[2].tones[4].score*100,
+          let roundTo = (n, digits) => {
+            if (digits === undefined) {
+              return('Did Not Detect');
+            }
+            var multiplicator = Math.pow(10, digits)
+            n = parseFloat((n * multiplicator).toFixed(11))
+            var test = (Math.round(n) / multiplicator)
+            return +(test.toFixed(digits))
           }
+          let attemptTone = {
+            emotionalTone_Anger: roundTo((res.document_tone.tone_categories[0].tones[0].score * 100), 2),
+            emotionalTone_Disgust: roundTo((res.document_tone.tone_categories[0].tones[1].score * 100), 2),
+            emotionalTone_Fear: roundTo((res.document_tone.tone_categories[0].tones[2].score * 100), 2),
+            emotionalTone_Joy: roundTo((res.document_tone.tone_categories[0].tones[3].score * 100), 2),
+            emotionalTone_Sadness: roundTo((res.document_tone.tone_categories[0].tones[4].score * 100), 2),
+            languageTone_Analytical: roundTo((res.document_tone.tone_categories[1].tones[0].score * 100), 2),
+            languageTone_Confident: roundTo((res.document_tone.tone_categories[1].tones[1].score * 100), 2),
+            languageTone_Tentative: roundTo((res.document_tone.tone_categories[1].tones[2].score * 100), 2),
+            socialTone_Openness: roundTo((res.document_tone.tone_categories[2].tones[0].score * 100), 2),
+            socialTone_Conscientiousness: roundTo((res.document_tone.tone_categories[2].tones[1].score * 100), 2),
+            socialTone_Etraversion: roundTo((res.document_tone.tone_categories[2].tones[2].score * 100), 2),
+            socialTone_Agreeableness: roundTo((res.document_tone.tone_categories[2].tones[3].score * 100), 2),
+            socialTone_EmotionalRange: roundTo((res.document_tone.tone_categories[2].tones[4].score * 100), 2),
+          }
+          console.log();
           this.setState({attemptTone:attemptTone}, function(){
             $.ajax({
               method: 'POST',
@@ -124,7 +135,8 @@ class SpeechAndGrade extends Component {
                 lcsScore: lcsScoreSave,
                 tones: this.state.attemptTone,
                 _project: this.props.selectedProject,
-                _user:this.props.currentUserId
+                _user:this.props.currentUserId,
+                commonWordCount: wordRepeatPercent
               }
             })
           })

@@ -54,6 +54,28 @@ class AttemptList extends Component {
           <a className='waves-effect waves-dark btn' onClick={this.props.clickNewAttempt}>Add New Recording</a> &emsp;
           <a className='waves-effect waves-dark btn' onClick={this.toggleDeleteModal}>Delete Project</a>
         </div>
+        <div className='projectTone'>
+          <ul className="collection">
+            <li className="collection-item avatar">
+              <span className="title">Language Tone</span>
+                <p>Tentative: <br/> Confident: <br/> Analytical:
+                </p>
+              <a href="#!" className="secondary-content"><i className="material-icons">library_books</i></a>
+            </li>
+            <li className="collection-item avatar">
+              <span className="title">Emotional Tone</span>
+              <p>Joy: <br/> Anger: <br/> Sadness: <br/> Disgust: <br/> Fear:
+              </p>
+              <a href="#!" className="secondary-content"><i className="material-icons">sentiment_neutral</i></a>
+            </li>
+            <li className="collection-item avatar">
+              <span className="title">Social Tone</span>
+                <p>Conscientiousness: <br/> Extraversion: <br/> Openness: <br/> Agreeableness: <br/> Emotional Range:
+                </p>
+              <a href="#!" className="secondary-content"><i className="material-icons">weekend</i></a>
+            </li>
+          </ul>
+        </div>
         <ul className="collection">
           {attemptCards}
         </ul>

@@ -33,6 +33,7 @@ class SpeechAndGrade extends Component {
   triggerWatsonSave = (e) => {
     if(e.key === 'Enter'){
       if (this.state.watsonInput === ''){
+        alert('Press Enter Again Please')
         this.setState({confirmation: true})
         console.log('If you are sure, press Enter again')
       } else if(this.state.watsonInput !== ''){
@@ -133,6 +134,7 @@ class SpeechAndGrade extends Component {
         })
         console.log('original spilt is ',this.state.userTranscriptSpilt);
         this.showGrade()
+
       }
     }
   }

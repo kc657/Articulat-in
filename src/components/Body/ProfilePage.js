@@ -11,7 +11,7 @@ class ProfilePage extends Component {
         </div>
         <div className='col s12 m6'>
           {(this.props.selectedProject) ? <AttemptList selectedProjectTone={this.props.selectedProjectTone} clickNewAttempt={this.props.clickNewAttempt} handleProjectDelete={this.props.handleProjectDelete} selectedProject={this.props.selectedProject} selectedProjectTitle={this.props.selectedProjectTitle} currentUserId={this.props.currentUserId} /> :
-          <div className='instructions center'>
+          <div className='instructions center middle'>
             <h2>Instructions</h2>
             <ol>
               <li>Create a new project on the left-hand side with a transcript you would like to practice on</li>

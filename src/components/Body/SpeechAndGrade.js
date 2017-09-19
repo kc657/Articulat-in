@@ -146,7 +146,7 @@ class SpeechAndGrade extends Component {
   render () {
     return (
       <div className='SpeechAndGrade'>
-        {this.state.isGrading ? <GradePage clickNewAttempt={this.props.clickNewAttempt} watsonInput={this.state.watsonInput} userTranscript={this.state.userTranscript}/> : <SpeechToTextBox saveWatsonInput={(e)=>this.saveWatsonInput(e)} showGrade={(e)=>this.showGrade(e)} triggerWatsonSave={(e)=>this.triggerWatsonSave(e)}/>}
+        {this.state.isGrading ? <GradePage clickNewAttempt={this.props.clickNewAttempt} watsonInput={this.state.watsonInput} userTranscript={this.state.userTranscript} selectedProjectScript={this.props.selectedProjectScript}/> : <SpeechToTextBox saveWatsonInput={(e)=>this.saveWatsonInput(e)} showGrade={(e)=>this.showGrade(e)} triggerWatsonSave={(e)=>this.triggerWatsonSave(e)} selectedProjectScript={this.props.selectedProjectScript}/>}
       </div>
     )
   }

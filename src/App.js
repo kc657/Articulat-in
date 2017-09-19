@@ -25,7 +25,7 @@ class App extends Component {
     return (
       <div className='App'>
         <NavBar setGlobalUserId={(e)=>this.setGlobalUserId(e)} handleLogOut={(e)=>this.handleLogOut(e)} isLoggedIn={this.state.isLoggedIn}/>
-        {this.state.isLoggedIn?<BodyContainer currentUserId={this.state.currentUserId}/>:<LandingPage />}
+        {this.state.isLoggedIn?<BodyContainer currentUserId={this.state.currentUserId}/>:<LandingPage setGlobalUserId={(e)=>this.setGlobalUserId(e)} handleLogOut={(e)=>this.handleLogOut(e)} isLoggedIn={this.state.isLoggedIn}/>}
       </div>
     )
   }

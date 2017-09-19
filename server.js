@@ -62,12 +62,16 @@ app.get('/api/projects/:userId', controllers.projects.show)
 app.get('/api/projects/showOne/:projectId', controllers.projects.showOne)
 // post new project
 app.post('/api/projects', controllers.projects.create)
+// delete one project
+app.delete('/api/projects/deleteOne/:projectId', controllers.projects.destroy)
 // get all attempts by current user
 app.get('/api/attempts/:userId', controllers.attempts.show)
 // post new attempt
 app.post('/api/attempts', controllers.attempts.create)
 // watson token route
 app.get('/api/watson/token', controllers.watson.token)
+// watson toneAnalyzer
+app.get('/api/watson/tone', controllers.watson.toneAnalyzer)
 // auth routes
 app.post('/signup', function signup (req, res) {
   console.log(`${req.body.username} ${req.body.password}`)

@@ -30,8 +30,18 @@ function create (req, res) {
   })
 }
 
+function destroy (req, res) {
+  db.Project.findOneAndRemove({ _id: req.params.projectId }, function (err, deletedProject) {
+    if (err) {
+      console.log('error deleting project: ', err)
+    }
+    res.json(deletedProject)
+  })
+}
+
 module.exports = {
   show: show,
   showOne: showOne,
-  create: create
+  create: create,
+  destroy: destroy
 }

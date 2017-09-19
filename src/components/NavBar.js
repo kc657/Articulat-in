@@ -18,17 +18,17 @@ class NavBar extends Component {
     }
   }
 
-  handleChange = (event) => {
-    let userInfo = $(event.target).closest('.validate').data('id-type');
-    this.setState({[userInfo]: event.target.value})
+  handleChange = (e) => {
+    let userInfo = $(e.target).closest('.validate').data('id-type');
+    this.setState({[userInfo]: e.target.value})
   }
 
   toggleSignupModal = () => {
     this.setState({isSignUpOpen: !this.state.isSignUpOpen})
   }
 
-  handleSignupSubmit = (event) => {
-    event.preventDefault()
+  handleSignupSubmit = (e) => {
+    e.preventDefault()
     $.ajax({
       method: 'POST',
       url: 'http://localhost:3001/signup',
@@ -52,8 +52,8 @@ class NavBar extends Component {
     this.setState({isSignInOpen: !this.state.isSignInOpen})
   }
 
-  handleSignInSubmit = (event) => {
-    event.preventDefault()
+  handleSignInSubmit = (e) => {
+    e.preventDefault()
     $.ajax({
       method: 'POST',
       url: 'http://localhost:3001/login',
@@ -79,28 +79,21 @@ class NavBar extends Component {
   render () {
     if (!this.props.isLoggedIn) {
       return (
-        <header>
-          <nav className='black'>
-            <a className='brand-logo left '>Articulat.in</a>
-            <ul id='navList' className='right'>
-              <li><a onClick={(event)=>this.toggleSignInModal(event)}>Sign In</a></li>
-              <li><a onClick={(event)=>this.toggleSignupModal(event)}>Sign Up</a></li>
-            </ul>
-          </nav>
-          <SignupModal isSignUpOpen={this.state.isSignUpOpen} toggleSignupModal={(event)=>this.toggleSignupModal(event)} handleSignupSubmit={(event)=>this.handleSignupSubmit(event)} handleChange={(event)=>this.handleChange(event)}
-          />
-          <SignInModal isSignInOpen={this.state.isSignInOpen} toggleSignInModal={(event)=>this.toggleSignInModal(event)} handleSignInSubmit={(event)=>this.handleSignInSubmit(event)} handleChange={(event)=>this.handleChange(event)}
-          />
-        </header>
+        <div>
+            <SignupModal isSignUpOpen={this.state.isSignUpOpen} toggleSignupModal={(e)=>this.toggleSignupModal(e)} handleSignupSubmit={(e)=>this.handleSignupSubmit(e)} handleChange={(e)=>this.handleChange(e)}
+            />
+            <SignInModal isSignInOpen={this.state.isSignInOpen} toggleSignInModal={(e)=>this.toggleSignInModal(e)} handleSignInSubmit={(e)=>this.handleSignInSubmit(e)} handleChange={(e)=>this.handleChange(e)}
+            />
+          </div>
       )
     }
     return (
       <header>
         <nav className='black'>
-          <a className='brand-logo left'>Articulat.in</a>
+          <a className='brand-logo left light-primary-text'>Articulat.in</a>
           <ul id='navList' className='right'>
-            <li><a>Welcome Back!</a></li>
-            <li><a onClick={this.props.handleLogOut}>Log Out</a></li>
+            <li><a className='light-primary-text'>Welcome Back!</a></li>
+            <li><a onClick={this.props.handleLogOut} className='light-primary-text'>Log Out</a></li>
           </ul>
         </nav>
       </header>

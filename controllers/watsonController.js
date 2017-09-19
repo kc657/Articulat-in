@@ -20,6 +20,18 @@ function stt_token (req, res) {
   })
 }
 
+function toneAnalyzer (req, res) {
+  let ta = new watson.ToneAnalyzerV3(config.tone_analyzer)
+  let myText = req.query.myText
+  ta.tone({text: myText}, function (err, result) {
+    if (err) {
+      return console.log(err)
+    }
+    res.send(result)
+  })
+}
+
 module.exports = {
-  token: stt_token
+  token: stt_token,
+  toneAnalyzer: toneAnalyzer
 }

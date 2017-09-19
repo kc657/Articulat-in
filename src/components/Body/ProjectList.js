@@ -39,24 +39,24 @@ class ProjectList extends Component {
       return (
         <a key={project._id} id='projectCard' className='collection-item click-for-project' data-project-name={project.title} data-project-id={project._id} onClick={this.props.handleProjectSelect}>
           <h1> { project.title } </h1>
-          <ul className="collection">
-            <li className="collection-item avatar">
-              <span className="title">Language Tone</span>
-                <p>Tentative: { project.tones.languageTone_Tentative } / 100 <br/> Confident: { project.tones.languageTone_Confident } / 100  <br/> Analytical: { project.tones.languageTone_Analytical } / 100
+          <ul className='collection'>
+            <li className='collection-item avatar'>
+              <span className='title'>Language Tone</span>
+              <p>Tentative: { project.tones.languageTone_Tentative } / 100 <br /> Confident: { project.tones.languageTone_Confident } / 100                      <br /> Analytical: { project.tones.languageTone_Analytical } / 100
                 </p>
-              <a href="#!" className="secondary-content"><i className="material-icons">library_books</i></a>
+              <a href='#!' className='secondary-content'><i className='material-icons'>library_books</i></a>
             </li>
-            <li className="collection-item avatar">
-              <span className="title">Emotional Tone</span>
-              <p>Joy: { project.tones.emotionalTone_Joy } / 100 <br/> Anger: { project.tones.emotionalTone_Anger } / 100 <br/> Sadness: { project.tones.emotionalTone_Sadness} / 100  <br/> Disgust: { project.tones.emotionalTone_Disgust } / 100  <br/> Fear: { project.tones.emotionalTone_Fear } / 100 
+            <li className='collection-item avatar'>
+              <span className='title'>Emotional Tone</span>
+              <p>Joy: { project.tones.emotionalTone_Joy } / 100 <br /> Anger: { project.tones.emotionalTone_Anger } / 100 <br /> Sadness: { project.tones.emotionalTone_Sadness} / 100                      <br /> Disgust: { project.tones.emotionalTone_Disgust } / 100                      <br /> Fear: { project.tones.emotionalTone_Fear } / 100
               </p>
-              <a href="#!" className="secondary-content"><i className="material-icons">sentiment_neutral</i></a>
+              <a href='#!' className='secondary-content'><i className='material-icons'>sentiment_neutral</i></a>
             </li>
-            <li className="collection-item avatar">
-              <span className="title">Social Tone</span>
-                <p>Conscientiousness: { project.tones.socialTone_Conscientiousness } / 100 <br/> Extraversion: { project.tones.socialTone_Etraversion } / 100 <br/> Openness: { project.tones.socialTone_Openness } / 100 <br/> Agreeableness: { project.tones.socialTone_Agreeableness } / 100 <br/> Emotional Range: { project.tones.socialTone_EmotionalRange } / 100
+            <li className='collection-item avatar'>
+              <span className='title'>Social Tone</span>
+              <p>Conscientiousness: { project.tones.socialTone_Conscientiousness } / 100 <br /> Extraversion: { project.tones.socialTone_Etraversion } / 100 <br /> Openness: { project.tones.socialTone_Openness } / 100 <br /> Agreeableness: { project.tones.socialTone_Agreeableness } / 100 <br /> Emotional Range: { project.tones.socialTone_EmotionalRange } / 100
                 </p>
-              <a href="#!" className="secondary-content"><i className="material-icons">weekend</i></a>
+              <a href='#!' className='secondary-content'><i className='material-icons'>weekend</i></a>
             </li>
           </ul>
         </a>

@@ -34,7 +34,6 @@ class SpeechToTextBox extends Component {
   stopRecording = () => {
     this.setState({isRecording: false})
     this.state.stream.stop('error', function (err) {
-      console.log(this.state.stream);
       console.log(err)
     })
   }
@@ -45,8 +44,6 @@ class SpeechToTextBox extends Component {
         this.setState({confirmation: true})
         console.log('If you are sure, press Enter again')
       } else if(this.state.userInput !== ''){
-        console.log('saved!');
-        console.log(this.state.userInput);
         this.props.showGrade()
       }
     }
@@ -64,7 +61,8 @@ class SpeechToTextBox extends Component {
             <h1>Practice Room</h1>
           </div>
           <div className='row col m12'>
-            {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecording}><i className='material-icons left'>stop</i>Stop</a>}
+            {!this.state.isRecording? <a className='waves-effect waves-light btn' onClick={this.startRecording}><i className='material-icons left'>record_voice_over</i>Record</a>: <a className='waves-effect waves-dark btn' onClick={this.stopRecording}><i className='material-icons left'>stop</i>Stop</a>} &emsp;
+            <a className='waves-effect waves-light btn' onClick={this.props.clickNewAttempt}>Go Back </a>
           </div>
           <div className='row col m12'>
             <center>

@@ -35,26 +35,26 @@ class SpeechAndGrade extends Component {
       if (this.state.watsonInput === ''){
         alert('Press Enter Again Please')
         this.setState({confirmation: true})
-        console.log('If you are sure, press Enter again')
       } else if(this.state.watsonInput !== ''){
         let result = []
         let hash = {}
-        let words = this.state.watsonInput.replace(/[^A-Z0-9]/ig, " ").split(" ")
-        words.forEach((word) => {
-          word = word.toLowerCase()
-          if (word !== "") {
-            if (!hash[word]) {
-              hash[word] = { name: word, count: 0 };
-              result.push(hash[word])
-            }
-            hash[word].count++
-          }
+        let watsonInputSpilt = this.state.watsonInput.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/[^A-Z0-9]/ig, " ").split(" ")
+        let userInputSpilt = this.state.userTranscript.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/[^A-Z0-9]/ig, " ").split(" ")
+        let watsonInputHash = {}
+        watsonInputSpilt.forEach(word => {
+          watsonInputHash[word] = watsonInputHash[word] ? watsonInputHash[word] + 1 : 1;
         })
-        let resultSplit = result.sort((a, b) => { return b.count - a.count;})
-        console.log('input spilt is ',resultSplit);
+        let userInputHash = {}
+        userInputSpilt.forEach(word => {
+          userInputHash[word] = userInputHash[word] ? userInputHash[word] + 1 : 1
+        })
+        let wordRepeatCount = 0
+        for (let i in userInputHash) {
+           wordRepeatCount += Math.min(userInputHash[i] ? userInputHash[i] : 0, watsonInputHash[i] ? watsonInputHash[i] : 0);
+           console.log(wordRepeatCount)
+         }
 
         let lcsWatsonInput = this.state.watsonInput.replace(/[^A-Z0-9]/ig, "")
-
         function lcs(x,y){
         	let s,i,j,m,n,
         		lcs=[],row=[],c=[],
@@ -119,7 +119,7 @@ class SpeechAndGrade extends Component {
               url: 'http://localhost:3001/api/attempts',
               data: {
                 attemptTranscript: this.state.watsonInput,
-                attemptTranscriptSpilt: resultSplit,
+                attemptTranscriptSpilt: watsonInputHash,
                 lcs: lcsSave,
                 lcsScore: lcsScoreSave,
                 tones: this.state.attemptTone,
@@ -146,7 +146,7 @@ class SpeechAndGrade extends Component {
   render () {
     return (
       <div className='SpeechAndGrade'>
-        {this.state.isGrading ? <GradePage clickNewAttempt={this.props.clickNewAttempt} watsonInput={this.state.watsonInput} userTranscript={this.state.userTranscript} selectedProjectScript={this.props.selectedProjectScript}/> : <SpeechToTextBox saveWatsonInput={(e)=>this.saveWatsonInput(e)} showGrade={(e)=>this.showGrade(e)} triggerWatsonSave={(e)=>this.triggerWatsonSave(e)} selectedProjectScript={this.props.selectedProjectScript}/>}
+        {this.state.isGrading ? <GradePage clickNewAttempt={this.props.clickNewAttempt} watsonInput={this.state.watsonInput} userTranscript={this.state.userTranscript} selectedProjectScript={this.props.selectedProjectScript}/> : <SpeechToTextBox clickNewAttempt={this.props.clickNewAttempt} saveWatsonInput={(e)=>this.saveWatsonInput(e)} showGrade={(e)=>this.showGrade(e)} triggerWatsonSave={(e)=>this.triggerWatsonSave(e)} selectedProjectScript={this.props.selectedProjectScript}/>}
       </div>
     )
   }
